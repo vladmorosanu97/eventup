@@ -5,13 +5,16 @@ export default function homeReducer(
   state = {
     isFetching: false,
     isFetchingSearch: false,
+    isFetchingLocationCoordinates: false,
     formState: {
       title: "",
       organizer: "",
       description: "",
       location: {
         id: "",
-        title: ""
+        title: "",
+        latitude: "",
+        longitude: ""
       },
       date: {
         day: "",
@@ -93,6 +96,25 @@ export default function homeReducer(
           }
         }
       };
+    case actionTypes.REQUEST_LOCATION_COORDINATES:
+      return {
+        ...state,
+        isFetchingLocationCoordinates: true
+      };
+    case actionTypes.RECEIVE_LOCATION_COORDINATES:
+      return {
+        ...state,
+        isFetchingLocationCoordinates: false,
+        formState: {
+          ...state.formState,
+          location: {
+            ...state.formState.location,
+            latitude: action.data.latitude,
+            longitude: action.data.longitude
+          }
+        }
+      };
+
     default:
       return state;
   }

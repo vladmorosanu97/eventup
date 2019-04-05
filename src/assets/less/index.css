@@ -116,7 +116,7 @@ body {
   flex-wrap: wrap;
 }
 .datetime-picker .calendar table thead th {
-  color: #FF9A19;
+  color: #ff9a19;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -365,13 +365,13 @@ body {
   justify-content: flex-start;
   flex-direction: column;
   padding: 35px;
-  overflow: auto;
 }
 .home__container-dashboard .location-label {
   display: flex;
   font-size: 1.1rem;
   font-weight: 300;
   margin-bottom: 10px;
+  margin-top: 30px;
 }
 .home__container-dashboard .location-field .input {
   width: 100%;
@@ -383,7 +383,6 @@ body {
   padding-top: 20px;
 }
 .home__container-dashboard .event_info {
-  margin-top: 30px;
   display: flex;
   flex-direction: row;
 }
@@ -627,7 +626,10 @@ body {
   cursor: pointer;
   padding-left: 4px;
 }
-.login__container .formular__container .content-sign-up span:nth-child(2):hover {
+.login__container
+  .formular__container
+  .content-sign-up
+  span:nth-child(2):hover {
   color: #1b1c1d;
 }
 .login__container .sign-up-active {
@@ -638,4 +640,23 @@ body {
 }
 .login__container .sign-in-with-error {
   min-height: 55%;
+}
+.new-event-section {
+  display: flex;
+}
+.new-event-section .form-section {
+  width: 50%;
+  height: 100%;
+}
+.new-event-section .image-section {
+  width: 50%;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.new-event-map {
+  width: 100%;
+  height: 400px;
+  margin-top: 30px;
 }

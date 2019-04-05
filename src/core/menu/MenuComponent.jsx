@@ -3,13 +3,7 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 export default class MenuComponent extends Component {
-  state = { activeItem: this.props.page };
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
   render() {
-    const { activeItem } = this.state;
-
     return (
       <div>
         <Menu pointing secondary color="orange">
@@ -17,8 +11,7 @@ export default class MenuComponent extends Component {
             as={Link}
             to="/home"
             name="home"
-            active={activeItem === 'home'}
-            onClick={this.handleItemClick}
+            active={this.props.page === 'home'}
           >
             Home
           </Menu.Item>
@@ -26,8 +19,7 @@ export default class MenuComponent extends Component {
             as={Link}
             to="/new-event"
             name="new-event"
-            active={activeItem === 'new-event'}
-            onClick={this.handleItemClick}
+            active={this.props.page === 'new-event'}
           >
             New Event
           </Menu.Item>

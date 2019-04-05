@@ -1,12 +1,14 @@
 import { connect } from "react-redux";
 import CreateEventComponent from "./CreateEvent";
+import { withRouter } from "react-router-dom";
 
 import {
   getLocationOptions,
   updateFormState,
   removeSelectedLocation,
   saveEvent,
-  resetFormState
+  resetFormState,
+  getLocationCoordinates
 } from "../createEventActions";
 
 const mapStateProps = state => ({
@@ -17,12 +19,19 @@ const mapDispatchToProps = dispatch => ({
   onGetLocationOptions: suggestion => {
     dispatch(getLocationOptions(suggestion));
   },
+
   onUpdateFormState: (propPath, payload) => {
     dispatch(updateFormState(propPath, payload));
   },
+
   onRemoveSelectedLocation: () => {
     dispatch(removeSelectedLocation());
   },
+
+  onGetLocationCoordinates: (locationId, handleLocation) => {
+    dispatch(getLocationCoordinates(locationId, handleLocation));
+  },
+
   onSaveEvent: props => {
     const { title, organizer, description, location, date, category } = props;
     const payload = {
@@ -41,9 +50,11 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const CreateEvent = connect(
-  mapStateProps,
-  mapDispatchToProps
-)(CreateEventComponent);
+const CreateEvent = withRouter(
+  connect(
+    mapStateProps,
+    mapDispatchToProps
+  )(CreateEventComponent)
+);
 
 export default CreateEvent;

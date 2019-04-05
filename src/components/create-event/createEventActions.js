@@ -11,7 +11,9 @@ export const actionTypes = {
   RECEIVE_SAVE_EVENT: "RECEIVE_SAVE_EVENT",
   RESET_FORM_STATE: "RESET_FORM_STATE",
   REQUEST_EVENT_LIST: "REQUEST_EVENT_LIST",
-  RECEIVE_EVENT_LIST: "RECEIVE_EVENT_LIST"
+  RECEIVE_EVENT_LIST: "RECEIVE_EVENT_LIST",
+  REQUEST_LOCATION_COORDINATES: "REQUEST_LOCATION_COORDINATES",
+  RECEIVE_LOCATION_COORDINATES: "RECEIVE_LOCATION_COORDINATES"
 };
 
 export const resetFormState = () => {
@@ -32,6 +34,56 @@ export const receiveLocationOptions = data => {
   return {
     type: actionTypes.RECEIVE_LOCATION_OPTIONS,
     data: data
+  };
+};
+
+export const requestLocationCoordinates = () => {
+  return {
+    type: actionTypes.REQUEST_LOCATION_COORDINATES
+  };
+};
+
+export const receiveLocationCoordinates = data => {
+  return {
+    type: actionTypes.RECEIVE_LOCATION_COORDINATES,
+    data: data
+  };
+};
+
+export const getLocationCoordinates = (locationId, handleLocation) => {
+  return dispatch => {
+    dispatch(requestLocationCoordinates());
+    return fetch(
+      `${HereConfig.BASE_URL_GEOCODE}?app_id=${HereConfig.APP_ID}&app_code=${
+        HereConfig.APP_CODE
+      }&locationid=${locationId}&gen=8`,
+      {
+        method: "JSONP",
+        callback: "jsoncallback",
+        callbackName: "callbackFiiPractic"
+      }
+    )
+      .then(
+        resp => {
+          return resp.json();
+        },
+        err => err
+      )
+      .then(resp => {
+        const {
+          Latitude
+        } = resp.Response.View[0].Result[0].Location.DisplayPosition;
+        const {
+          Longitude
+        } = resp.Response.View[0].Result[0].Location.DisplayPosition;
+        const locationCoordinates = {
+          latitude: Latitude,
+          longitude: Longitude
+        };
+        debugger;
+        handleLocation(Longitude, Latitude, "star");
+        dispatch(receiveLocationCoordinates(locationCoordinates));
+      });
   };
 };
 

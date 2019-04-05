@@ -108,6 +108,7 @@ export default function OlMapFunction(opts) {
 
     centerMap(long, lat) {
       const coords = fromLonLat([long, lat]);
+      console.log(coords);
       view.animate({
         center: this.convertCoordinates(coords, "EPSG:3857", "EPSG:3857"),
         zoom: 6,
