@@ -5,6 +5,78 @@
   .form-section {
     width: 50%;
     height: 100%;
+    margin-top: 30px;
+
+    .location-label {
+      display: flex;
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    .location-field {
+      .input {
+        width: 100%;
+      }
+      .prompt {
+        border-radius: 0.28571429rem;
+      }
+    }
+
+    .selected-location {
+      padding-top: 20px;
+    }
+
+    .event_date {
+      .date-label {
+        display: flex;
+        margin-top: 30px;
+        font-size: 1.1rem;
+        font-weight: 300;
+        margin-bottom: 10px;
+      }
+
+      .datetime-trigger {
+        display: inline-block;
+        width: 100%;
+      }
+    }
+
+    .category-label {
+      display: flex;
+      flex-direction: column;
+      margin-top: 30px;
+      font-size: 1.1rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .category-select {
+      width: 100%;
+    }
+
+    .event-actions {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    .event_item-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      border-bottom: solid 1px #c1bfbf;
+      cursor: pointer;
+      padding-top: 20px;
+      padding-bottom: 10px;
+      &:hover {
+        background-color: #ebebeb;
+      }
+    }
+
+    .active {
+      background-color: #ebebeb;
+    }
   }
 
   .image-section {
@@ -20,8 +92,4 @@
   width: 100%;
   height: 400px;
   margin-top: 30px;
-}
-
-.form-section {
-  margin-top: 15px;
 }

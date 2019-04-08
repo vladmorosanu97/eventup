@@ -6,6 +6,8 @@ export const actionTypes = {
   REQUEST_LOCATION_OPTIONS: "REQUEST_LOCATION_OPTIONS",
   RECEIVE_LOCATION_OPTIONS: "RECEIVE_LOCATION_OPTIONS",
   UPDATE_FORM_STATE: "UPDATE_FORM_STATE",
+  UPDATE_SUBMIT_BUTTON: "UPDATE_SUBMIT_BUTTON",
+  CHECK_FORM_ERRORS: "CHECK_FORM_ERRORS",
   REMOVE_SELECTED_LOCATION: "REMOVE_SELECTED_LOCATION",
   REQUEST_SAVE_EVENT: "REQUEST_SAVE_EVENT",
   RECEIVE_SAVE_EVENT: "RECEIVE_SAVE_EVENT",
@@ -46,6 +48,13 @@ export const requestLocationCoordinates = () => {
 export const receiveLocationCoordinates = data => {
   return {
     type: actionTypes.RECEIVE_LOCATION_COORDINATES,
+    data: data
+  };
+};
+
+export const updateSubmitButton = data => {
+  return {
+    type: actionTypes.UPDATE_SUBMIT_BUTTON,
     data: data
   };
 };
@@ -127,6 +136,14 @@ export const updateFormState = (propPath, payload) => {
       type: actionTypes.UPDATE_FORM_STATE,
       propPath: propPath,
       data: payload
+    });
+  };
+};
+
+export const checkFromErrors = (propPath, payload) => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.CHECK_FORM_ERRORS
     });
   };
 };

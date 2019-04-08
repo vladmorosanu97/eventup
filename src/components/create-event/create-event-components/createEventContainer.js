@@ -8,7 +8,9 @@ import {
   removeSelectedLocation,
   saveEvent,
   resetFormState,
-  getLocationCoordinates
+  getLocationCoordinates,
+  updateSubmitButton,
+  checkFromErrors
 } from "../createEventActions";
 
 const mapStateProps = state => ({
@@ -22,6 +24,12 @@ const mapDispatchToProps = dispatch => ({
 
   onUpdateFormState: (propPath, payload) => {
     dispatch(updateFormState(propPath, payload));
+    dispatch(checkFromErrors());
+  },
+
+  onClickSubmitButton: payload => {
+    dispatch(updateSubmitButton(payload));
+    dispatch(checkFromErrors());
   },
 
   onRemoveSelectedLocation: () => {
@@ -44,6 +52,7 @@ const mapDispatchToProps = dispatch => ({
       category
     };
     dispatch(saveEvent(payload));
+    dispatch(resetFormState());
   },
   onResetFormState: () => {
     dispatch(resetFormState());

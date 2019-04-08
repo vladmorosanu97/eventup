@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Transition, Icon, Search, Select } from 'semantic-ui-react';
-import { DatetimePickerTrigger } from 'rc-datetime-picker';
 import moment from 'moment';
 import { ReactComponent as AddEventImage } from '../../../assets/images/undraw_browser_stats_704t.svg';
 import OlMapFunction from '../../../services/map/OlMap';
+import InputForm from '../../shared/InputForm';
+import TextareaForm from '../../shared/TextareaForm';
+import SelectForm from '../../shared/SelectForm';
+import LocationForm from './LocationForm';
+import DatePickerForm from './DatePickerForm';
 
 export default class CreateEventComponent extends Component {
   state = {
@@ -27,17 +30,8 @@ export default class CreateEventComponent extends Component {
   };
 
   handleUpdateFormState = (ev, data) => {
-    console.log('aici');
     this.props.onUpdateFormState(data.name, data.result);
-    console.log(
-      this.props.onGetLocationCoordinates(data.result.id, this.onSelectLocation)
-    );
-
-    // this.onSelectLocation(
-    //   this.props.formState.location.longitude,
-    //   this.props.formState.location.latitude,
-    //   this.props.formState.location.title
-    // );
+    this.props.onGetLocationCoordinates(data.result.id, this.onSelectLocation);
   };
 
   onSelectLocation = (longitude, latitude, title) => {
@@ -66,12 +60,23 @@ export default class CreateEventComponent extends Component {
   };
 
   handleSaveEvent = () => {
-    console.log(this.props.createEvent.formState);
-    this.props.onSaveEvent(this.props.createEvent.formState);
-    this.onClickBackToHomePage();
+    console.log(this.props.createEvent.isSubmitDirty);
+    console.log(this.checkIfCanSave());
+    if (this.checkIfCanSave()) {
+      this.props.onSaveEvent(this.props.createEvent.formState);
+
+      this.onClickBackToHomePage();
+      console.log('Salveaza');
+    } else {
+      this.props.onClickSubmitButton(true);
+    }
   };
 
   onClickBackToHomePage = () => {
+    this.props.history.push('/home');
+  };
+
+  onClickBackToEventList = () => {
     this.props.history.push('/home');
   };
 
@@ -94,7 +99,6 @@ export default class CreateEventComponent extends Component {
   handleLocationInput = (ev, data) => {
     this.setState({ suggestionForLocation: data.value }, () => {
       if (data.value !== '') {
-        console.log(data.value);
         this.props.onGetLocationOptions(data.value);
       }
     });
@@ -121,7 +125,7 @@ export default class CreateEventComponent extends Component {
       organizer !== '' &&
       description !== '' &&
       location.title !== '' &&
-      date !== '' &&
+      date.day !== '' &&
       category !== ''
     );
   };
@@ -135,184 +139,107 @@ export default class CreateEventComponent extends Component {
       isFetchingSearch,
       locationOptions,
       categoryOptions,
-      formState
+      formState,
+      formErrors,
+      isSubmitDirty
     } = this.props.createEvent;
     return (
-      <>
-        <div className="new-event-section">
-          <div className="form-section">
-            <Transition
-              // visible={this.state.createEventVisible}
-              animation="fade left"
-              duration={500}
-              // onComplete={
-              //   this.state.createEventVisible ? null : this.onCompleteBackToEventList
-              // }
-            >
-              <div className="home__container-dashboard">
-                <div className="event_info">
-                  <div className="event_info-title">
-                    <div className="event-name-label">
-                      <Icon name="asterisk" color="red" size="tiny" />
-                      <p>Event name:</p>
-                    </div>
-                    <div className="ui input">
-                      <input
-                        type="text"
-                        name="title"
-                        value={formState.title}
-                        placeholder="E.g. Party of the Year"
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="event_info-organizer">
-                    <div className="event-organizer-label">
-                      <Icon name="asterisk" color="red" size="tiny" />
-                      <p>Organised by:</p>
-                    </div>
-                    <div className="ui input">
-                      <input
-                        type="text"
-                        name="organizer"
-                        value={formState.organizer}
-                        placeholder="E.g. The Event Organiser"
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                  </div>
-                </div>
+      <div className="new-event-section">
+        <div className="form-section">
+          <div className="event_info">
+            <InputForm
+              name="title"
+              value={formState.title}
+              handleInputChange={this.handleInputChange}
+              hasError={formErrors.title && isSubmitDirty}
+              placeholder="E.g. Party of the Year"
+              label="Event name"
+            />
+            <InputForm
+              name="organizer"
+              value={formState.organizer}
+              handleInputChange={this.handleInputChange}
+              hasError={formErrors.organizer && isSubmitDirty}
+              placeholder="E.g. The Event Organizer"
+              label="Organized by"
+            />
+          </div>
+          <TextareaForm
+            name="description"
+            value={formState.description}
+            handleInputChange={this.handleInputChange}
+            hasError={formErrors.description && isSubmitDirty}
+            label="Description"
+          />
 
-                <div className="description-label">
-                  <Icon name="asterisk" color="red" size="tiny" />
-                  <p>Description:</p>
-                </div>
-                <div className="ui form">
-                  <div className="field">
-                    <textarea
-                      rows="3"
-                      name="description"
-                      value={formState.description}
-                      onChange={this.handleInputChange}
-                      className="description-field"
-                    />
-                  </div>
-                </div>
-                <div className="full-width display-flex ">
-                  <div className="half-width">
-                    <div className="event_date">
-                      <div className="date-label">
-                        <Icon name="asterisk" color="red" size="tiny" />
-                        <p>Starts at:</p>
-                      </div>
-                      <DatetimePickerTrigger
-                        shortcuts={shortcuts}
-                        moment={this.state.moment}
-                        closeOnSelectDay={true}
-                        onChange={this.handleDateChange}
-                      >
-                        <div className="ui action input">
-                          <input
-                            type="text"
-                            name="date"
-                            value={this.state.moment.format('lll')}
-                            readOnly
-                          />
-                          <button className="ui icon button">
-                            <i className="search icon" />
-                          </button>
-                        </div>
-                      </DatetimePickerTrigger>
-                    </div>
-                    <div className="category-label">
-                      <Icon name="asterisk" color="red" size="tiny" />
-                      <p>Category:</p>
-                      <Select
-                        name="category"
-                        className="category-select"
-                        placeholder="Choose a category for your event"
-                        options={categoryOptions}
-                        onChange={(ev, data) =>
-                          this.handleCategoryChange(ev, data)
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div className="image-section">
-                    <AddEventImage width="250" height="250" />
-                  </div>
-                </div>
+          <div className="event_info">
+            <div className="half-width">
+              <DatePickerForm
+                name="date"
+                shortcuts={shortcuts}
+                moment={this.state.moment}
+                closeOnSelectDay={true}
+                handleDateChange={this.handleDateChange}
+                hasError={formErrors.date && isSubmitDirty}
+                label="Starts at"
+              />
+              <SelectForm
+                name="category"
+                className="category-select"
+                placeholder="Choose a category for your event"
+                categoryOptions={categoryOptions}
+                handleCategoryChange={this.handleCategoryChange}
+                hasError={formErrors.category && isSubmitDirty}
+                label="Category"
+              />
+            </div>
+            <div className="image-section margin-top-10">
+              <AddEventImage width="200" height="200" />
+            </div>
+          </div>
 
-                <div className="location-label">
-                  <Icon name="asterisk" color="red" size="tiny" />
-                  <p>Add a location:</p>
-                </div>
-                <Search
-                  fluid
-                  name="location"
-                  placeholder="Search ..."
-                  loading={isFetchingSearch}
-                  onResultSelect={(ev, data) =>
-                    this.handleUpdateFormState(ev, data)
-                  }
-                  onSearchChange={(ev, data) =>
-                    this.handleLocationInput(ev, data)
-                  }
-                  results={locationOptions}
-                  value={this.state.suggestionForLocation}
-                  className="location-field"
-                />
-                {formState.location.title !== '' ? (
-                  <div className="selected-location">
-                    <div className="ui image label large">
-                      <Icon name="map marker alternate" color="orange" />
-                      {formState.location.title}
-                      <i
-                        className="delete icon"
-                        onClick={this.removeSelectedLocation}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  ''
-                )}
-                <div className="new-event-map-section">
-                  <div id="mapContainer" className="new-event-map">
-                    <div style={{ display: 'none' }}>
-                      <div
-                        id="marker"
-                        className="ui icon"
-                        data-position="top center"
-                      >
-                        <i className="map pin orange icon big" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="event-actions">
-                  <div className="ui buttons">
-                    <button
-                      className="ui button"
-                      onClick={this.onClickBackToEventList}
-                    >
-                      Cancel
-                    </button>
-                    <div className="or" />
-                    <button
-                      className={`ui positive button ${
-                        this.checkIfCanSave() ? '' : 'disabled'
-                      }`}
-                      onClick={this.handleSaveEvent}
-                    >
-                      Save
-                    </button>
-                  </div>
+          <LocationForm
+            name="location"
+            placeholder="Search ..."
+            isFetchingSearch={isFetchingSearch}
+            handleUpdateFormState={this.handleUpdateFormState}
+            handleLocationInput={this.handleLocationInput}
+            locationOptions={locationOptions}
+            suggestionForLocation={this.state.suggestionForLocation}
+            removeSelectedLocation={this.removeSelectedLocation}
+            location={formState.location}
+            hasError={formErrors.location && isSubmitDirty}
+            label="Add a location"
+          />
+
+          <div className="new-event-map-section">
+            <div id="mapContainer" className="new-event-map">
+              <div style={{ display: 'none' }}>
+                <div id="marker" className="ui icon" data-position="top center">
+                  <i className="map pin orange icon big" />
                 </div>
               </div>
-            </Transition>
+            </div>
+          </div>
+          <div className="event-actions">
+            <div className="ui buttons">
+              <button
+                className="ui button"
+                onClick={this.onClickBackToEventList}
+              >
+                Cancel
+              </button>
+              <div className="or" />
+              <button
+                className={`ui positive button`}
+                onClick={this.handleSaveEvent}
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

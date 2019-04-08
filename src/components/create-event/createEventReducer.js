@@ -1,11 +1,12 @@
 import { actionTypes } from "./createEventActions";
 import { categoryOptions } from "../../utils/utils";
 
-export default function homeReducer(
+export default function createEventReducer(
   state = {
     isFetching: false,
     isFetchingSearch: false,
     isFetchingLocationCoordinates: false,
+    isSubmitDirty: false,
     formState: {
       title: "",
       organizer: "",
@@ -22,6 +23,14 @@ export default function homeReducer(
         entireDate: ""
       },
       category: ""
+    },
+    formErrors: {
+      title: false,
+      organizer: false,
+      description: false,
+      location: false,
+      date: false,
+      category: false
     },
     locationOptions: [],
     categoryOptions: categoryOptions,
@@ -85,6 +94,18 @@ export default function homeReducer(
           [action.propPath]: action.data
         }
       };
+    case actionTypes.CHECK_FORM_ERRORS:
+      return {
+        ...state,
+        formErrors: {
+          title: state.formState.title === "",
+          organizer: state.formState.organizer === "",
+          description: state.formState.description === "",
+          location: state.formState.location.title === "",
+          date: state.formState.date.day === "",
+          category: state.formState.category === ""
+        }
+      };
     case actionTypes.REMOVE_SELECTED_LOCATION:
       return {
         ...state,
@@ -113,6 +134,12 @@ export default function homeReducer(
             longitude: action.data.longitude
           }
         }
+      };
+
+    case actionTypes.UPDATE_SUBMIT_BUTTON:
+      return {
+        ...state,
+        isSubmitDirty: action.data
       };
 
     default:
