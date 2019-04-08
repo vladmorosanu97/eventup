@@ -16,7 +16,7 @@ export default class CreateEventComponent extends Component {
     const appMap = new OlMapFunction({
       projectionCode: 'EPSG:3857',
       divId: 'mapContainer',
-      zoom: 10,
+      zoom: 12,
       center: [3069846.933198887, 5968162.614045765]
     });
     this.appMap = appMap;
@@ -182,30 +182,7 @@ export default class CreateEventComponent extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="event_date">
-                  <div className="date-label">
-                    <Icon name="asterisk" color="red" size="tiny" />
-                    <p>Starts at:</p>
-                  </div>
-                  <DatetimePickerTrigger
-                    shortcuts={shortcuts}
-                    moment={this.state.moment}
-                    closeOnSelectDay={true}
-                    onChange={this.handleDateChange}
-                  >
-                    <div className="ui action input">
-                      <input
-                        type="text"
-                        name="date"
-                        value={this.state.moment.format('lll')}
-                        readOnly
-                      />
-                      <button className="ui icon button">
-                        <i className="search icon" />
-                      </button>
-                    </div>
-                  </DatetimePickerTrigger>
-                </div>
+
                 <div className="description-label">
                   <Icon name="asterisk" color="red" size="tiny" />
                   <p>Description:</p>
@@ -221,18 +198,50 @@ export default class CreateEventComponent extends Component {
                     />
                   </div>
                 </div>
-                <div className="category-label">
-                  <Icon name="asterisk" color="red" size="tiny" />
-                  <p>Category:</p>
+                <div className="full-width display-flex ">
+                  <div className="half-width">
+                    <div className="event_date">
+                      <div className="date-label">
+                        <Icon name="asterisk" color="red" size="tiny" />
+                        <p>Starts at:</p>
+                      </div>
+                      <DatetimePickerTrigger
+                        shortcuts={shortcuts}
+                        moment={this.state.moment}
+                        closeOnSelectDay={true}
+                        onChange={this.handleDateChange}
+                      >
+                        <div className="ui action input">
+                          <input
+                            type="text"
+                            name="date"
+                            value={this.state.moment.format('lll')}
+                            readOnly
+                          />
+                          <button className="ui icon button">
+                            <i className="search icon" />
+                          </button>
+                        </div>
+                      </DatetimePickerTrigger>
+                    </div>
+                    <div className="category-label">
+                      <Icon name="asterisk" color="red" size="tiny" />
+                      <p>Category:</p>
+                      <Select
+                        name="category"
+                        className="category-select"
+                        placeholder="Choose a category for your event"
+                        options={categoryOptions}
+                        onChange={(ev, data) =>
+                          this.handleCategoryChange(ev, data)
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="image-section">
+                    <AddEventImage width="250" height="250" />
+                  </div>
                 </div>
-
-                <Select
-                  name="category"
-                  className="category-select"
-                  placeholder="Choose a category for your event"
-                  options={categoryOptions}
-                  onChange={(ev, data) => this.handleCategoryChange(ev, data)}
-                />
 
                 <div className="location-label">
                   <Icon name="asterisk" color="red" size="tiny" />
@@ -301,10 +310,6 @@ export default class CreateEventComponent extends Component {
                 </div>
               </div>
             </Transition>
-          </div>
-
-          <div className="image-section">
-            <AddEventImage width="500" height="500" />
           </div>
         </div>
       </>
