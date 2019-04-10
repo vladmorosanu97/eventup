@@ -5,7 +5,7 @@ import { Menu } from 'semantic-ui-react';
 export default class MenuComponent extends Component {
   render() {
     return (
-      <div>
+      <div style={{ backgroundColor: '#ffffff' }}>
         <Menu pointing secondary color="orange">
           <Menu.Item
             as={Link}

@@ -63,11 +63,6 @@ class HomeComponent extends Component {
                 placeholder="Search..."
                 onChange={this.handleSearchChange}
               />
-              {/* // loading={isLoading}
-                // onResultSelect={this.handleResultSelect}
-                onSearchChange={this.handleSearchChange}
-                value={value}
-              /> */}
             </div>
           </div>
           <div className="home__container-dashboard">

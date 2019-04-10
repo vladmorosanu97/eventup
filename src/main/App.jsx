@@ -13,6 +13,7 @@ import MainLayout from '../core/mainLayout/MainLayout';
 import Login from '../components/login/loginComponents/loginContainer';
 import Home from '../components/home/homeComponents/homeContainer';
 import CreateEvent from '../components/create-event/create-event-components/createEventContainer';
+import Event from '../components/event/event-components/eventContainer';
 
 class App extends React.Component {
   render() {
@@ -44,6 +45,19 @@ class App extends React.Component {
               </WithAuth>
             )}
           />
+
+          <Route
+            exact
+            path="/event/:eventId"
+            render={props => (
+              <WithAuth {...props}>
+                <MainLayout {...props}>
+                  <Event />
+                </MainLayout>
+              </WithAuth>
+            )}
+          />
+          {/* <Route path="/event/:eventId" component={Event} /> */}
 
           {/* When you insert a wrong route you will be automatically redirect to login screen */}
           <Route component={Login} />
