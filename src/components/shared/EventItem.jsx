@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function EventItem(props) {
   const { event } = props;
+
   return (
     <div
       className={`event_item-container ${props.className}`}
@@ -12,7 +14,9 @@ export default function EventItem(props) {
         <div className="event_item-date-month">{event.date.month}</div>
       </div>
       <div className="event_item-info-container">
-        <div className="event_item-info-title">{event.title}</div>
+        <div className="event_item-info-title">
+          <Link to={`/event/${event.eventId}`}>{event.title}</Link>
+        </div>
         <div className="event_item-info-date">
           <i className="clock outline grey icon" />
           {event.date.entireDate}

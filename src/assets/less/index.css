@@ -388,6 +388,9 @@ body {
 .margin-top-10 {
   margin-top: 10px;
 }
+.margin-right-10 {
+  margin-right: 10px;
+}
 .form-input-height {
   height: 100px;
 }
@@ -735,4 +738,168 @@ body {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: -1;
+}
+.event-section {
+  width: 100%;
+  height: 89vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.event-section .title-section {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+.event-section .title-section .title {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: "proxima-nova-condensed", Helvetica;
+  color: #fff;
+  font-size: 35px;
+}
+.event-section .title-section .header {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 18px;
+}
+.event-section .title-section .other-info {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.event-section .title-section .other-info * {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  margin: 0px 10px 0px 10px;
+}
+.event-section .title-section .buttons {
+  display: flex;
+}
+.event-section .title-section .buttons:first {
+  margin-right: 10px;
+}
+.event-description-section {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: white;
+  justify-content: center;
+  display: flex;
+}
+.event-description-section .event-description-section-container {
+  width: 1024px;
+  display: flex;
+  justify-content: space-between;
+}
+.event-description-section .event-description {
+  width: 100%;
+}
+.event-description-section .event-description .event_item-info-location {
+  font-size: 20px;
+}
+.event-description-section .event-description .event_item-info-location i {
+  margin-right: 10px;
+}
+.event-description-section .event-description .event_item-info-section {
+  display: flex;
+  font-size: 16px;
+  margin: 10px 0px 10px 0px;
+}
+.event-description-section
+  .event-description
+  .event_item-info-section
+  .event_item-info-section-label {
+  margin-right: 10px;
+}
+.other-section {
+  width: 100vw;
+  height: 1000vh;
+}
+body {
+  background: #ccc;
+  font: 87.5%/1.5em "Lato", sans-serif;
+  margin: 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td {
+  padding: 0;
+}
+.calendar-container {
+  position: relative;
+  width: 400px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.calendar-container header {
+  background: #e66b6b;
+  color: #fff;
+  padding: 1em 2em;
+}
+.day {
+  font-size: 4em;
+  font-weight: 900;
+  line-height: 1em;
+}
+.month {
+  font-size: 3em;
+  line-height: 1em;
+  text-transform: lowercase;
+}
+.calendar {
+  background: #fff;
+  color: #555;
+  display: inline-block;
+  padding: 2em;
+  width: 100%;
+}
+.calendar thead {
+  color: #e66b6b;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.calendar td {
+  padding: 0.5em 1em;
+  text-align: center;
+}
+.calendar tbody td:hover {
+  background: #cacaca;
+  color: #fff;
+}
+.current-day {
+  color: #e66b6b;
+}
+.prev-month,
+.next-month {
+  color: #cacaca;
+}
+.ring-left,
+.ring-right {
+  position: absolute;
+  top: 192px;
+}
+.ring-left {
+  left: 2em;
+}
+.ring-right {
+  right: 2em;
+}
+.ring-left:before,
+.ring-left:after,
+.ring-right:before,
+.ring-right:after {
+  background: #fff;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 3px 1px rgba(0, 0, 0, 0.3),
+    0 -1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 1px rgba(0, 0, 0, 0.3), 0 -1px 1px rgba(0, 0, 0, 0.2);
+  content: "";
+  display: inline-block;
+  margin: 8px;
+  height: 32px;
+  width: 8px;
 }
