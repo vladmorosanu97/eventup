@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import video from '../../../services/night.mp4';
-import { Button, Card, Icon } from 'semantic-ui-react';
-import { DatetimePicker } from 'rc-datetime-picker';
-import moment from 'moment';
-import Calendar from '../../shared/Calendar';
+import React, { Component } from "react";
+import video from "../../../services/night.mp4";
+import { Button, Card, Icon } from "semantic-ui-react";
+import { DatetimePicker } from "rc-datetime-picker";
+import moment from "moment";
+import Calendar from "../../shared/Calendar";
 export default class EventComponent extends Component {
   state = {
     moment: moment()
@@ -21,6 +21,7 @@ export default class EventComponent extends Component {
 
   render() {
     const { isFetching, event } = this.props.event;
+    console.log(event);
     return (
       <div>
         <div className="container-video">
@@ -44,37 +45,39 @@ export default class EventComponent extends Component {
         <div className="event-description-section">
           <div className="event-description-section-container">
             <div className="event-description">
-              <div className="event_item-info-location">
-                <i className="map marker alternate grey icon" />
-                {event.location.title}
-              </div>
-              <div className="event_item-info-section">
-                <div className="event_item-info-section-label">
-                  <i className="circle orange icon tiny" />
-                  <span>Description:</span>
+              <div>
+                <div className="event_item-info-location">
+                  <i className="map marker alternate grey icon" />
+                  {event.location.title}
                 </div>
-                {event.description}
-              </div>
-              <div className="event_item-info-section">
-                <div className="event_item-info-section-label">
-                  <i className="circle orange icon tiny" />
-                  <span>Organizer:</span>
+                <div className="event_item-info-section">
+                  <div className="event_item-info-section-label">
+                    <i className="circle orange icon tiny" />
+                    <span>Description:</span>
+                  </div>
+                  {event.description}
                 </div>
-                {event.organizer}
-              </div>
-              <div className="event_item-info-section">
-                <div className="event_item-info-section-label">
-                  <i className="circle orange icon tiny" />
-                  <span>Category:</span>
+                <div className="event_item-info-section">
+                  <div className="event_item-info-section-label">
+                    <i className="circle orange icon tiny" />
+                    <span>Organizer:</span>
+                  </div>
+                  {event.organizer}
                 </div>
-                {event.category}
+                <div className="event_item-info-section">
+                  <div className="event_item-info-section-label">
+                    <i className="circle orange icon tiny" />
+                    <span>Category:</span>
+                  </div>
+                  {event.category}
+                </div>
               </div>
             </div>
-            <Calendar />
+            <Calendar day={event.date.day} month={event.date.month} time={event.date.entireDate.substring(event.date.entireDate.length-8, event.date.entireDate.length)}/>
           </div>
         </div>
         <div
-          className={`ui ${isFetching ? 'active' : 'disabled'} inverted dimmer`}
+          className={`ui ${isFetching ? "active" : "disabled"} inverted dimmer`}
         >
           <div className="ui medium loader" />
         </div>

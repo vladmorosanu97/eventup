@@ -783,8 +783,8 @@ body {
   margin-right: 10px;
 }
 .event-description-section {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 70px;
+  padding-bottom: 70px;
   background-color: white;
   justify-content: center;
   display: flex;
@@ -796,16 +796,21 @@ body {
 }
 .event-description-section .event-description {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .event-description-section .event-description .event_item-info-location {
   font-size: 20px;
+  margin-bottom: 30px;
 }
 .event-description-section .event-description .event_item-info-location i {
   margin-right: 10px;
 }
 .event-description-section .event-description .event_item-info-section {
   display: flex;
-  font-size: 16px;
+  font-size: 17px;
   margin: 10px 0px 10px 0px;
 }
 .event-description-section
@@ -818,11 +823,6 @@ body {
   width: 100vw;
   height: 1000vh;
 }
-body {
-  background: #ccc;
-  font: 87.5%/1.5em "Lato", sans-serif;
-  margin: 0;
-}
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -832,33 +832,43 @@ td {
 }
 .calendar-container {
   position: relative;
-  width: 400px;
+  width: 450px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 .calendar-container header {
-  background: #e66b6b;
+  background: #f2711c;
   color: #fff;
   padding: 1em 2em;
+  display: flex;
+  justify-content: space-between;
 }
 .day {
-  font-size: 4em;
-  font-weight: 900;
+  font-size: 3em;
+  font-weight: 100;
   line-height: 1em;
 }
 .month {
-  font-size: 3em;
+  font-size: 2em;
   line-height: 1em;
   text-transform: lowercase;
+}
+.time-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.time-section .time {
+  font-size: 2em;
 }
 .calendar {
   background: #fff;
   color: #555;
   display: inline-block;
-  padding: 2em;
+  padding: 1em;
   width: 100%;
 }
 .calendar thead {
-  color: #e66b6b;
+  color: #f2711c;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -866,12 +876,9 @@ td {
   padding: 0.5em 1em;
   text-align: center;
 }
-.calendar tbody td:hover {
-  background: #cacaca;
-  color: #fff;
-}
 .current-day {
-  color: #e66b6b;
+  background: #f2711c;
+  color: #fff;
 }
 .prev-month,
 .next-month {
