@@ -3,15 +3,15 @@ import CreateEventComponent from "./Event";
 import { withRouter } from "react-router-dom";
 import EventComponent from "./Event";
 
-import { getEvent } from "../eventActions";
+import { getEvent, getWeatherApi } from "../eventActions";
 
 const mapStateProps = state => ({
   event: Object.assign({}, state.event)
 });
 
 const mapDispatchToProps = dispatch => ({
-  onGetEvent: eventId => {
-    dispatch(getEvent(eventId));
+  onGetEvent: (eventId, initializeMap) => {
+    dispatch(getEvent(eventId, initializeMap));
   }
 });
 

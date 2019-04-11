@@ -79,6 +79,7 @@ export const getLocationCoordinates = (locationId, handleLocation) => {
         err => err
       )
       .then(resp => {
+        console.log(resp);
         const {
           Latitude
         } = resp.Response.View[0].Result[0].Location.DisplayPosition;
@@ -89,7 +90,6 @@ export const getLocationCoordinates = (locationId, handleLocation) => {
           latitude: Latitude,
           longitude: Longitude
         };
-        debugger;
         handleLocation(Longitude, Latitude, "star");
         dispatch(receiveLocationCoordinates(locationCoordinates));
       });

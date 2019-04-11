@@ -326,6 +326,12 @@ body {
 .display-flex {
   display: flex;
 }
+.justify-around {
+  justify-content: space-around;
+}
+.align-center {
+  align-items: center;
+}
 .flex-column {
   flex-direction: column;
 }
@@ -819,6 +825,38 @@ body {
   .event_item-info-section-label {
   margin-right: 10px;
 }
+.map-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.map-section .title {
+  font-size: 22px;
+  color: #9a9a9a;
+  margin-bottom: 20px;
+}
+.map-section .map {
+  margin-top: 30px;
+  width: 1024px;
+  max-height: 400px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+.weather-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.weather-section .title {
+  font-size: 22px;
+  color: #9a9a9a;
+  margin-bottom: 20px;
+}
 .other-section {
   width: 100vw;
   height: 1000vh;
@@ -909,4 +947,28 @@ td {
   margin: 8px;
   height: 32px;
   width: 8px;
+}
+.weather {
+  width: 1024px;
+  height: 300px;
+  display: flex;
+}
+.weather .half {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.weather .half .title {
+  font-size: 25px;
+  color: #f2711c;
+  margin-bottom: 20px;
+}
+.weather .half .label {
+  font-size: 18px;
+  color: #9a9a9a;
+}
+.weather .half .small {
+  font-size: 16px;
 }
