@@ -1,0 +1,110 @@
+.event_item-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: solid 1px #dfdfdf;
+  cursor: pointer;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  margin: 10px 10px 10px 10px;
+  background-color: white;
+  border-radius: 7px;
+  &:hover {
+    background-color: #e7e7e7;
+  }
+  .event_item-date-day {
+    color: #f2711c;
+  }
+
+  .event_item-date {
+    &-container {
+      padding-left: 25px;
+    }
+
+    &-day {
+      padding-top: 5px;
+      font-size: 30px;
+      font-weight: 600;
+      color: #868484;
+    }
+    &-month {
+      font-size: 14px;
+      font-weight: 350;
+      color: #868484;
+    }
+  }
+
+  .event_item-info {
+    &-container {
+      width: 100%;
+      padding-left: 35px;
+    }
+    &-title {
+      font-size: 1.3rem;
+      font-weight: 300;
+    }
+    &-date {
+      padding-top: 5px;
+      font-size: 14px;
+    }
+    &-location {
+      font-size: 14px;
+    }
+    &-description {
+      padding-top: 8px;
+      display: flex;
+      align-items: flex-start;
+
+      &-label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 14px;
+
+        padding-right: 10px;
+
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+
+    &-organizer {
+      display: flex;
+      align-items: flex-start;
+
+      &-label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 14px;
+
+        padding-right: 10px;
+
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+
+    &-category {
+      padding-bottom: 5px;
+      display: flex;
+      align-items: flex-start;
+
+      &-label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 14px;
+
+        padding-right: 10px;
+
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

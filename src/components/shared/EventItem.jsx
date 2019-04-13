@@ -9,15 +9,9 @@ export default function EventItem(props) {
   let isFinished = eventDate < currentDate;
   return (
     <>
-      <div
-        label={{ as: "a", corner: "left", icon: "heart" }}
-        className={`event_item-container ${props.className} `}
-        onClick={props.onClickEvent}
-      >
+      <div label={{ as: "a", corner: "left", icon: "heart" }} className={`event_item-container ${props.className} `} onClick={props.onClickEvent}>
         <div className="event_item-date-container">
-          <div className={`event_item-date-day ${isFinished ? "gray" : ""}`}>
-            {event.date.day}
-          </div>
+          <div className={`event_item-date-day ${isFinished ? "gray" : ""}`}>{event.date.day}</div>
           <div className="event_item-date-month">{event.date.month}</div>
         </div>
 
