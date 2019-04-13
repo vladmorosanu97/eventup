@@ -1,53 +1,46 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button, Label, Segment, Popup } from "semantic-ui-react";
 
 export default function EventItem(props) {
   const { event } = props;
-
+  let currentDate = new Date();
+  let eventDate = new Date(event.date.entireDate);
+  let isFinished = eventDate < currentDate;
   return (
-    <div
-      className={`event_item-container ${props.className}`}
-      onClick={props.onClickEvent}
-    >
-      <div className="event_item-date-container">
-        <div className="event_item-date-day">{event.date.day}</div>
-        <div className="event_item-date-month">{event.date.month}</div>
+    <>
+      <div
+        label={{ as: "a", corner: "left", icon: "heart" }}
+        className={`event_item-container ${props.className} `}
+        onClick={props.onClickEvent}
+      >
+        <div className="event_item-date-container">
+          <div className={`event_item-date-day ${isFinished ? "gray" : ""}`}>
+            {event.date.day}
+          </div>
+          <div className="event_item-date-month">{event.date.month}</div>
+        </div>
+
+        <div className="event_item-info-container">
+          <div className="event_item-info-title">
+            <Link to={`/event/${event.eventId}`}>{event.title}</Link>
+          </div>
+          <div className="event_item-info-date">
+            <i className="clock outline grey icon" />
+            {event.date.entireDate}
+          </div>
+          <div className="event_item-info-location">
+            <i className="map marker alternate grey icon" />
+            {event.location.title}
+          </div>
+        </div>
+
+        <Link to={`/event/${event.eventId}`}>
+          <Button basic color={`${isFinished ? "gray" : "orange"}`}>
+            Details
+          </Button>
+        </Link>
       </div>
-      <div className="event_item-info-container">
-        <div className="event_item-info-title">
-          <Link to={`/event/${event.eventId}`}>{event.title}</Link>
-        </div>
-        <div className="event_item-info-date">
-          <i className="clock outline grey icon" />
-          {event.date.entireDate}
-        </div>
-        <div className="event_item-info-location">
-          <i className="map marker alternate grey icon" />
-          {event.location.title}
-        </div>
-        <div className="event_item-info-description">
-          <div className="event_item-info-description-label">
-            <i className="circle orange icon tiny" />
-            <span>Description:</span>
-          </div>
-          {event.description}
-        </div>
-        <div className="event_item-info-organizer">
-          <div className="event_item-info-organizer-label">
-            <i className="circle orange icon tiny" />
-            <span>Organizer:</span>
-          </div>
-          {event.organizer}
-        </div>
-        <div className="event_item-info-category">
-          <div className="event_item-info-category-label">
-            <i className="circle orange icon tiny" />
-            <span>Category:</span>
-          </div>
-          {event.category}
-        </div>
-      </div>
-      <div className="event_item-action-container" />
-    </div>
+    </>
   );
 }

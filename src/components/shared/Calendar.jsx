@@ -1,31 +1,38 @@
-
 import React, { Component } from "react";
 
 export default class Calendar extends Component {
   divStyle = {
-    margin: '40px',
-    border: '5px solid pink'
+    margin: "40px",
+    border: "5px solid pink"
   };
 
   componentDidUpdate() {
     let days = document.querySelectorAll("td");
     [].forEach.call(days, function(el) {
-      el.classList.remove('current-day');
+      el.classList.remove("current-day");
     });
-    if(this.props.day !== undefined && this.props.day !== null && this.props.day !== "") {
-      document.querySelector(`td[data-day="${this.props.day}"`).classList.add('current-day');
+    if (
+      this.props.day !== undefined &&
+      this.props.day !== null &&
+      this.props.day !== ""
+    ) {
+      document
+        .querySelector(`td[data-day="${this.props.day}"`)
+        .classList.add("current-day");
     }
-  } 
+  }
 
   render() {
-    const { day, month, time } = this.props;
+    const { day, month, time, year } = this.props;
     return (
       <>
         <div class="calendar-container">
           <header>
             <div>
               <div class="day">{day}</div>
-              <div class="month">{month}</div>
+              <div class="month">
+                {month} {year}
+              </div>
             </div>
             <div className="time-section">
               <div class="time">{time}</div>

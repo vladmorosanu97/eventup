@@ -22,7 +22,8 @@ export default function createEventReducer(
         month: "",
         entireDate: ""
       },
-      category: ""
+      category: "",
+      users: []
     },
     formErrors: {
       title: false,

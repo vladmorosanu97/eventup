@@ -49,7 +49,8 @@ const mapDispatchToProps = dispatch => ({
       description,
       location,
       date,
-      category
+      category,
+      users: []
     };
     dispatch(saveEvent(payload));
     dispatch(resetFormState());

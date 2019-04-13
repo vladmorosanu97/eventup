@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import { ReactComponent as AddEventImage } from '../../../assets/images/undraw_browser_stats_704t.svg';
-import OlMapFunction from '../../../services/map/OlMap';
-import InputForm from '../../shared/InputForm';
-import TextareaForm from '../../shared/TextareaForm';
-import SelectForm from '../../shared/SelectForm';
-import LocationForm from './LocationForm';
-import DatePickerForm from './DatePickerForm';
+import React, { Component } from "react";
+import moment from "moment";
+import { ReactComponent as AddEventImage } from "../../../assets/images/undraw_browser_stats_704t.svg";
+import OlMapFunction from "../../../services/map/OlMap";
+import InputForm from "../../shared/InputForm";
+import TextareaForm from "../../shared/TextareaForm";
+import SelectForm from "../../shared/SelectForm";
+import LocationForm from "./LocationForm";
+import DatePickerForm from "./DatePickerForm";
 
 export default class CreateEventComponent extends Component {
   state = {
-    suggestionForLocation: '',
+    suggestionForLocation: "",
     moment: moment(),
     activeIndex: -1
   };
 
   componentDidMount = () => {
     const appMap = new OlMapFunction({
-      projectionCode: 'EPSG:3857',
-      divId: 'mapContainer',
+      projectionCode: "EPSG:3857",
+      divId: "mapContainer",
       zoom: 12,
       center: [3069846.933198887, 5968162.614045765]
     });
@@ -35,11 +35,11 @@ export default class CreateEventComponent extends Component {
   };
 
   onSelectLocation = (longitude, latitude, title) => {
-    document.getElementById('marker').dataset.tooltip = title;
+    document.getElementById("marker").dataset.tooltip = title;
     this.appMap.addMarker(
       longitude,
       latitude,
-      document.getElementById('marker')
+      document.getElementById("marker")
     );
     this.appMap.centerMap(longitude, latitude);
   };
@@ -47,7 +47,7 @@ export default class CreateEventComponent extends Component {
   removeSelectedLocation = () => {
     this.setState(
       {
-        suggestionForLocation: ''
+        suggestionForLocation: ""
       },
       () => {
         this.props.onRemoveSelectedLocation();
@@ -66,18 +66,18 @@ export default class CreateEventComponent extends Component {
       this.props.onSaveEvent(this.props.createEvent.formState);
 
       this.onClickBackToHomePage();
-      console.log('Salveaza');
+      console.log("Salveaza");
     } else {
       this.props.onClickSubmitButton(true);
     }
   };
 
   onClickBackToHomePage = () => {
-    this.props.history.push('/home');
+    this.props.history.push("/home");
   };
 
   onClickBackToEventList = () => {
-    this.props.history.push('/home');
+    this.props.history.push("/home");
   };
 
   handleDateChange = moment => {
@@ -87,18 +87,23 @@ export default class CreateEventComponent extends Component {
       },
       () => {
         const payload = {
-          day: moment.format('DD'),
-          month: moment.format('MMM').toUpperCase(),
-          entireDate: moment.format('LLLL')
+          day: moment.format("DD"),
+          month: moment.format("MMMM"),
+          year:
+            moment
+              .format("YYYY")
+              .charAt(0)
+              .toUpperCase() + moment.format("YYYY").slice(1),
+          entireDate: moment.format("LLLL")
         };
-        this.props.onUpdateFormState('date', payload);
+        this.props.onUpdateFormState("date", payload);
       }
     );
   };
 
   handleLocationInput = (ev, data) => {
     this.setState({ suggestionForLocation: data.value }, () => {
-      if (data.value !== '') {
+      if (data.value !== "") {
         this.props.onGetLocationOptions(data.value);
       }
     });
@@ -121,19 +126,19 @@ export default class CreateEventComponent extends Component {
       category
     } = this.props.createEvent.formState;
     return (
-      title !== '' &&
-      organizer !== '' &&
-      description !== '' &&
-      location.title !== '' &&
-      date.day !== '' &&
-      category !== ''
+      title !== "" &&
+      organizer !== "" &&
+      description !== "" &&
+      location.title !== "" &&
+      date.day !== "" &&
+      category !== ""
     );
   };
 
   render() {
     const shortcuts = {
       Today: moment(),
-      Tomorrow: moment().add(1, 'days')
+      Tomorrow: moment().add(1, "days")
     };
     const {
       isFetchingSearch,
@@ -214,7 +219,7 @@ export default class CreateEventComponent extends Component {
 
           <div className="new-event-map-section">
             <div id="mapContainer" className="new-event-map">
-              <div style={{ display: 'none' }}>
+              <div style={{ display: "none" }}>
                 <div id="marker" className="ui icon" data-position="top center">
                   <i className="map pin orange icon big" />
                 </div>

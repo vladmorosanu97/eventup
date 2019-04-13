@@ -1,5 +1,5 @@
 .main-content {
-  height: ~'calc(100% - 110px)';
+  height: ~"calc(100% - 110px)";
 }
 
 .home__container {
@@ -55,14 +55,24 @@
     .event_item-container {
       display: flex;
       flex-direction: row;
-      align-items: flex-start;
+      align-items: center;
       border-bottom: solid 1px #c1bfbf;
       cursor: pointer;
       padding-top: 20px;
-      padding-bottom: 10px;
+      padding-bottom: 20px;
       &:hover {
         background-color: #ebebeb;
       }
+
+      .event_item-date-container {
+        .event_item-date-day {
+          color: #f2711c;
+        }
+      }
+    }
+
+    .done {
+      background-color: #d3d3d3;
     }
 
     .active {

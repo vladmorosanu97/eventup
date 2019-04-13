@@ -406,6 +406,15 @@ body {
 .form-location-height {
   height: 105px;
 }
+.ui.floating.label {
+  display: flex;
+}
+.gray {
+  color: #868484 !important;
+}
+.gray-background {
+  background-color: #868484 !important;
+}
 .main-content {
   height: calc(100% - 110px);
 }
@@ -456,14 +465,23 @@ body {
 .home__container-dashboard .event_item-container {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   border-bottom: solid 1px #c1bfbf;
   cursor: pointer;
   padding-top: 20px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 .home__container-dashboard .event_item-container:hover {
   background-color: #ebebeb;
+}
+.home__container-dashboard
+  .event_item-container
+  .event_item-date-container
+  .event_item-date-day {
+  color: #f2711c;
+}
+.home__container-dashboard .done {
+  background-color: #d3d3d3;
 }
 .home__container-dashboard .active {
   background-color: #ebebeb;
@@ -851,15 +869,48 @@ body {
   align-items: center;
   flex-direction: column;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 .weather-section .title {
   font-size: 22px;
   color: #9a9a9a;
   margin-bottom: 20px;
 }
+.weather-section .weather-not-allowed {
+  width: 1000px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .other-section {
   width: 100vw;
   height: 1000vh;
+}
+.fetching-data {
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.participants-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.participants-section .title {
+  font-size: 22px;
+  color: #9a9a9a;
+  margin-bottom: 20px;
+}
+.participants-section .participants {
+  margin-top: 30px;
+  width: 1000px;
 }
 table {
   border-collapse: collapse;
