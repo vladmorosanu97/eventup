@@ -89,7 +89,11 @@ export const isUserJoinedToEvent = userId => {
   };
 };
 
-export const receiveEventCallback = (payload, initializeMap) => {
+export const receiveEventCallback = (
+  payload,
+  initializeMap,
+  isFirstRequest
+) => {
   return dispatch => {
     dispatch(receiveEvent(payload));
     initializeMap();
@@ -101,16 +105,18 @@ export const receiveEventCallback = (payload, initializeMap) => {
     let eventDate = new Date(payload.event.date.entireDate);
     var diffDays = parseInt((eventDate - currentDate) / (1000 * 60 * 60 * 24));
     // maximum of days allowed for api
-    if (diffDays < 5 && diffDays >= 0) {
-      dispatch(requestWeather());
-      // dispatch(getWeatherApi(rsp.event.location.title, diffDays));
-    } else {
-      dispatch(setDateDifferenceMoreThanMaxAllowed());
+    if (isFirstRequest === true) {
+      if (diffDays < 5 && diffDays >= 0) {
+        dispatch(requestWeather());
+        // dispatch(getWeatherApi(payload.event.location.title, diffDays));
+      } else {
+        dispatch(setDateDifferenceMoreThanMaxAllowed());
+      }
     }
   };
 };
 
-export const getEvent = (eventId, initializeMap) => {
+export const getEvent = (eventId, initializeMap, isFirstRequest = true) => {
   return dispatch => {
     dispatch(requestEvent());
     let payload = {
@@ -123,7 +129,10 @@ export const getEvent = (eventId, initializeMap) => {
         console.log(snapshot.val());
         if (snapshot.val() !== null) {
           payload["event"] = snapshot.val();
-          dispatch(receiveEventCallback(payload, initializeMap));
+          dispatch(
+            receiveEventCallback(payload, initializeMap, isFirstRequest)
+          );
+          isFirstRequest = false;
         }
       });
   };

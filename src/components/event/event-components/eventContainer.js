@@ -16,7 +16,7 @@ const mapStateProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onGetEvent: (eventId, initializeMap) => {
-    dispatch(getEvent(eventId, initializeMap));
+    dispatch(getEvent(eventId, initializeMap, true));
   },
 
   onJoinUserToEvent: (userDetails, eventId) => {

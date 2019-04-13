@@ -470,6 +470,7 @@ body {
   cursor: pointer;
   padding-top: 20px;
   padding-bottom: 20px;
+  padding-right: 20px;
 }
 .home__container-dashboard .event_item-container:hover {
   background-color: #ebebeb;
@@ -909,8 +910,13 @@ body {
   margin-bottom: 20px;
 }
 .participants-section .participants {
-  margin-top: 30px;
+  margin-top: 20px;
   width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.participants-section .participants .ui.card {
+  margin: 1em 1em !important;
 }
 table {
   border-collapse: collapse;
