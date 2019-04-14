@@ -142,6 +142,13 @@ export default function createEventReducer(
         ...state,
         isSubmitDirty: action.data
       };
+    case actionTypes.INITIALIZE_FORM:
+      return {
+        ...state,
+        formState: {
+          ...action.data
+        }
+      };
 
     default:
       return state;

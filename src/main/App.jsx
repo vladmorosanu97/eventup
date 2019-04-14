@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 //page components
@@ -15,6 +10,7 @@ import Home from "../components/home/homeComponents/homeContainer";
 import CreateEvent from "../components/create-event/create-event-components/createEventContainer";
 import Event from "../components/event/event-components/eventContainer";
 import MyEvents from "../components/my-events/my-events-components/myEventsContainer";
+import User from "../components/user/user-components/userContainer";
 
 class App extends React.Component {
   render() {
@@ -66,6 +62,29 @@ class App extends React.Component {
               <WithAuth {...props}>
                 <MainLayout {...props}>
                   <MyEvents />
+                </MainLayout>
+              </WithAuth>
+            )}
+          />
+          <Route
+            exact
+            path="/my-events/:eventId"
+            render={props => (
+              <WithAuth {...props}>
+                <MainLayout {...props}>
+                  <CreateEvent />
+                </MainLayout>
+              </WithAuth>
+            )}
+          />
+
+          <Route
+            exact
+            path="/users/:userId"
+            render={props => (
+              <WithAuth {...props}>
+                <MainLayout {...props}>
+                  <User />
                 </MainLayout>
               </WithAuth>
             )}

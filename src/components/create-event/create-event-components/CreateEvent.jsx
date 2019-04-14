@@ -16,6 +16,7 @@ export default class CreateEventComponent extends Component {
   };
 
   componentDidMount = () => {
+    this.props.onResetFormState();
     const appMap = new OlMapFunction({
       projectionCode: "EPSG:3857",
       divId: "mapContainer",
@@ -27,7 +28,19 @@ export default class CreateEventComponent extends Component {
       console.log(pos.coords);
       appMap.centerMap(pos.coords.longitude, pos.coords.latitude);
     });
+
+    const {
+      match: { params }
+    } = this.props;
+
+    if (params.eventId != undefined) {
+      this.initializeForm(params.eventId, this.onSelectLocation);
+    }
   };
+
+  initializeForm(eventId, onSelectLocation) {
+    this.props.onInitializeForm(eventId, onSelectLocation);
+  }
 
   handleUpdateFormState = (ev, data) => {
     this.props.onUpdateFormState(data.name, data.result);
@@ -36,11 +49,7 @@ export default class CreateEventComponent extends Component {
 
   onSelectLocation = (longitude, latitude, title) => {
     document.getElementById("marker").dataset.tooltip = title;
-    this.appMap.addMarker(
-      longitude,
-      latitude,
-      document.getElementById("marker")
-    );
+    this.appMap.addMarker(longitude, latitude, document.getElementById("marker"));
     this.appMap.centerMap(longitude, latitude);
   };
 
@@ -60,13 +69,18 @@ export default class CreateEventComponent extends Component {
   };
 
   handleSaveEvent = () => {
-    console.log(this.props.createEvent.isSubmitDirty);
-    console.log(this.checkIfCanSave());
-    if (this.checkIfCanSave()) {
-      this.props.onSaveEvent(this.props.createEvent.formState);
+    const {
+      match: { params }
+    } = this.props;
 
-      this.onClickBackToHomePage();
-      console.log("Salveaza");
+    if (this.checkIfCanSave()) {
+      if (params.eventId != undefined) {
+        this.props.onUpdateEvent(params.eventId, this.props.createEvent.formState);
+        this.onClickBackToHomePage();
+      } else {
+        this.props.onSaveEvent(this.props.createEvent.formState);
+        this.onClickBackToHomePage();
+      }
     } else {
       this.props.onClickSubmitButton(true);
     }
@@ -117,22 +131,8 @@ export default class CreateEventComponent extends Component {
   };
 
   checkIfCanSave = () => {
-    const {
-      title,
-      organizer,
-      description,
-      location,
-      date,
-      category
-    } = this.props.createEvent.formState;
-    return (
-      title !== "" &&
-      organizer !== "" &&
-      description !== "" &&
-      location.title !== "" &&
-      date.day !== "" &&
-      category !== ""
-    );
+    const { title, organizer, description, location, date, category } = this.props.createEvent.formState;
+    return title !== "" && organizer !== "" && description !== "" && location.title !== "" && date.day !== "" && category !== "";
   };
 
   render() {
@@ -140,14 +140,7 @@ export default class CreateEventComponent extends Component {
       Today: moment(),
       Tomorrow: moment().add(1, "days")
     };
-    const {
-      isFetchingSearch,
-      locationOptions,
-      categoryOptions,
-      formState,
-      formErrors,
-      isSubmitDirty
-    } = this.props.createEvent;
+    const { isFetchingSearch, locationOptions, categoryOptions, formState, formErrors, isSubmitDirty } = this.props.createEvent;
     return (
       <div className="new-event-section">
         <div className="form-section">
@@ -196,6 +189,7 @@ export default class CreateEventComponent extends Component {
                 handleCategoryChange={this.handleCategoryChange}
                 hasError={formErrors.category && isSubmitDirty}
                 label="Category"
+                category={formState.category}
               />
             </div>
             <div className="image-section margin-top-10">
@@ -228,17 +222,11 @@ export default class CreateEventComponent extends Component {
           </div>
           <div className="event-actions">
             <div className="ui buttons">
-              <button
-                className="ui button"
-                onClick={this.onClickBackToEventList}
-              >
+              <button className="ui button" onClick={this.onClickBackToEventList}>
                 Cancel
               </button>
               <div className="or" />
-              <button
-                className={`ui positive button`}
-                onClick={this.handleSaveEvent}
-              >
+              <button className={`ui positive button`} onClick={this.handleSaveEvent}>
                 Save
               </button>
             </div>

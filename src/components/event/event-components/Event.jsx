@@ -1,20 +1,12 @@
 import React, { Component } from "react";
 import video from "../../../services/night.mp4";
-import {
-  Button,
-  Card,
-  Icon,
-  Message,
-  Dimmer,
-  Loader,
-  Segment,
-  Image
-} from "semantic-ui-react";
+import { Button, Card, Icon, Message, Dimmer, Loader, Segment, Image } from "semantic-ui-react";
 import { DatetimePicker } from "rc-datetime-picker";
 import moment from "moment";
 import Calendar from "../../shared/Calendar";
 import OlMapFunction from "../../../services/map/OlMap";
 import Weather from "./Weather";
+import { Link } from "react-router-dom";
 export default class EventComponent extends Component {
   state = {
     moment: moment()
@@ -36,11 +28,7 @@ export default class EventComponent extends Component {
     this.appMap = appMap;
     const { location, title } = this.props.event.eventDetails;
     document.getElementById("marker").dataset.tooltip = title;
-    this.appMap.addMarker(
-      location.longitude,
-      location.latitude,
-      document.getElementById("marker")
-    );
+    this.appMap.addMarker(location.longitude, location.latitude, document.getElementById("marker"));
     this.appMap.centerMap(location.longitude, location.latitude);
   };
 
@@ -72,12 +60,7 @@ export default class EventComponent extends Component {
   };
 
   render() {
-    const {
-      isFetching,
-      eventDetails,
-      weather,
-      isUserJoinedToEvent
-    } = this.props.event;
+    const { isFetching, eventDetails, weather, isUserJoinedToEvent } = this.props.event;
     return (
       <div>
         <div className="container-video">
@@ -92,28 +75,14 @@ export default class EventComponent extends Component {
               <div className="title-section">
                 <h1 className="title">{eventDetails.title}</h1>
                 <p className="header">{eventDetails.description}</p>
-                <p className="header">
-                  {isUserJoinedToEvent
-                    ? "Esti inregistrat la acest eveniment"
-                    : null}
-                </p>
+                <p className="header">{isUserJoinedToEvent ? "Esti inregistrat la acest eveniment" : null}</p>
                 <div className="buttons">
                   {isUserJoinedToEvent ? (
-                    <Button
-                      basic
-                      inverted
-                      size="big"
-                      onClick={this.cancelUserParticipation}
-                    >
+                    <Button basic inverted size="big" onClick={this.cancelUserParticipation}>
                       Cancel participation
                     </Button>
                   ) : (
-                    <Button
-                      basic
-                      inverted
-                      size="big"
-                      onClick={this.handleJoinEvent}
-                    >
+                    <Button basic inverted size="big" onClick={this.handleJoinEvent}>
                       Join
                     </Button>
                   )}
@@ -151,24 +120,15 @@ export default class EventComponent extends Component {
                   day={eventDetails.date.day}
                   month={eventDetails.date.month}
                   year={eventDetails.date.year}
-                  time={eventDetails.date.entireDate.substring(
-                    eventDetails.date.entireDate.length - 8,
-                    eventDetails.date.entireDate.length
-                  )}
+                  time={eventDetails.date.entireDate.substring(eventDetails.date.entireDate.length - 8, eventDetails.date.entireDate.length)}
                 />
               </div>
             </div>
             <div className="map-section">
-              <div className="title">
-                This event is placed in {eventDetails.location.title}
-              </div>
+              <div className="title">This event is placed in {eventDetails.location.title}</div>
               <div id="mapContainer2" className="map">
                 <div style={{ display: "none" }}>
-                  <div
-                    id="marker"
-                    className="ui icon"
-                    data-position="top center"
-                  >
+                  <div id="marker" className="ui icon" data-position="top center">
                     <i className="map pin orange icon big" />
                   </div>
                 </div>
@@ -176,8 +136,7 @@ export default class EventComponent extends Component {
             </div>
             <div className="weather-section">
               <div className="title">
-                The weather forecast for the {eventDetails.date.day}{" "}
-                {eventDetails.date.month} {eventDetails.date.year}
+                The weather forecast for the {eventDetails.date.day} {eventDetails.date.month} {eventDetails.date.year}
               </div>
               {!weather.isMoreThanMaxDaysAllowed ? (
                 !weather.isFetchingWeather ? (
@@ -188,9 +147,7 @@ export default class EventComponent extends Component {
                   ) : (
                     <Message negative>
                       <Message.Header>
-                        <div className="weather-not-allowed">
-                          Weather not allowed for this region
-                        </div>
+                        <div className="weather-not-allowed">Weather not allowed for this region</div>
                       </Message.Header>
                     </Message>
                   )
@@ -202,10 +159,7 @@ export default class EventComponent extends Component {
               ) : (
                 <Message info>
                   <Message.Header>
-                    <div className="weather-not-allowed">
-                      Hai aici cu cel mult 5 zile inainte de eveniment pentru a
-                      vedea vremea.
-                    </div>
+                    <div className="weather-not-allowed">Hai aici cu cel mult 5 zile inainte de eveniment pentru a vedea vremea.</div>
                   </Message.Header>
                 </Message>
               )}
@@ -217,15 +171,13 @@ export default class EventComponent extends Component {
                   ? Object.keys(eventDetails.users).map((key, index) => (
                       <Card key={index}>
                         <Card.Content>
-                          <Image
-                            floated="right"
-                            size="mini"
-                            src="https://react.semantic-ui.com/images/avatar/large/steve.jpg"
-                          />
-                          <Card.Header>
-                            {eventDetails.users[key].firstName}{" "}
-                            {eventDetails.users[key].lastName}
-                          </Card.Header>
+                          <Image floated="right" size="mini" src="https://react.semantic-ui.com/images/avatar/large/steve.jpg" />
+                          <Link to={`/users/${key}`}>
+                            <Card.Header>
+                              {eventDetails.users[key].firstName} {eventDetails.users[key].lastName}
+                            </Card.Header>
+                          </Link>
+
                           <Card.Meta>Friends of Elliot</Card.Meta>
                         </Card.Content>
                       </Card>

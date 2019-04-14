@@ -15,7 +15,8 @@ export const actionTypes = {
   REQUEST_EVENT_LIST: "REQUEST_EVENT_LIST",
   RECEIVE_EVENT_LIST: "RECEIVE_EVENT_LIST",
   REQUEST_LOCATION_COORDINATES: "REQUEST_LOCATION_COORDINATES",
-  RECEIVE_LOCATION_COORDINATES: "RECEIVE_LOCATION_COORDINATES"
+  RECEIVE_LOCATION_COORDINATES: "RECEIVE_LOCATION_COORDINATES",
+  INITIALIZE_FORM: "INITIALIZE_FORM"
 };
 
 export const resetFormState = () => {
@@ -55,6 +56,13 @@ export const receiveLocationCoordinates = data => {
 export const updateSubmitButton = data => {
   return {
     type: actionTypes.UPDATE_SUBMIT_BUTTON,
+    data: data
+  };
+};
+
+export const initializeForm = data => {
+  return {
+    type: actionTypes.INITIALIZE_FORM,
     data: data
   };
 };
@@ -200,10 +208,44 @@ export const saveEvent = payload => {
   };
 };
 
+export const initializeFormFirebase = (eventId, handleLocation) => {
+  return dispatch => {
+    let payload = {
+      event: ""
+    };
+    return firebaseProvider
+      .database()
+      .ref(`events/${eventId}`)
+      .once("value", snapshot => {
+        if (snapshot.val() !== null) {
+          payload["event"] = snapshot.val();
+          dispatch(initializeForm(payload.event));
+          debugger;
+          handleLocation(
+            payload.event.location.longitude,
+            payload.event.location.latitude,
+            payload.event.title
+          );
+        }
+      });
+  };
+};
+
 export const setNewEvent = (event, userId) => {
   return firebaseProvider
     .database()
     .ref("events")
     .push()
     .set(event);
+};
+
+export const updateEvent = (eventId, payload) => {
+  return dispatch => {
+    firebaseProvider
+      .database()
+      .ref(`events/${eventId}`)
+      .update({
+        ...payload
+      });
+  };
 };

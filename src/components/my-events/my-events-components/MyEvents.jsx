@@ -3,15 +3,17 @@ import { Card, Image, Icon } from "semantic-ui-react";
 import EventItem from "../../shared/EventItem";
 
 class MyEventsComponent extends Component {
-  state = {};
+  state = {
+    userId: this.props.userId ? this.props.userId : localStorage.getItem("userId")
+  };
   componentDidMount = () => {
+    console.log(this.state.userId);
     this.initializeMyEvents();
   };
 
   initializeMyEvents = () => {
-    let userId = localStorage.getItem("userId");
-    this.props.onGetMyEvents(userId);
-    this.props.onGetMyScheduledEvents(userId);
+    this.props.onGetMyEvents(this.state.userId);
+    this.props.onGetMyScheduledEvents(this.state.userId);
   };
 
   render() {
@@ -26,7 +28,12 @@ class MyEventsComponent extends Component {
           <div className="my-events-list">
             {!isFetchingMyEvents
               ? myEvents.map((item, index) => (
-                  <EventItem key={index} event={item} className={this.state.activeIndex === index ? "active cursor-default" : "cursor-default"} />
+                  <EventItem
+                    key={index}
+                    event={item}
+                    className={this.state.activeIndex === index ? "active cursor-default" : "cursor-default"}
+                    buttons={this.props.userId == null ? [{ label: "Edit", linkTo: `my-events/${item.eventId}` }] : []} //this.props.userId === my-events page
+                  />
                 ))
               : ""}
             {myEvents.length == 0 && !isFetchingMyEvents ? (

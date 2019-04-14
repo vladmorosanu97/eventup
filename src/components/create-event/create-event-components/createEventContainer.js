@@ -10,7 +10,9 @@ import {
   resetFormState,
   getLocationCoordinates,
   updateSubmitButton,
-  checkFromErrors
+  checkFromErrors,
+  initializeFormFirebase,
+  updateEvent
 } from "../createEventActions";
 
 const mapStateProps = state => ({
@@ -36,6 +38,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removeSelectedLocation());
   },
 
+  onResetFormState: () => {
+    dispatch(resetFormState());
+  },
+
   onGetLocationCoordinates: (locationId, handleLocation) => {
     dispatch(getLocationCoordinates(locationId, handleLocation));
   },
@@ -56,6 +62,26 @@ const mapDispatchToProps = dispatch => ({
     dispatch(resetFormState());
   },
   onResetFormState: () => {
+    dispatch(resetFormState());
+  },
+
+  onInitializeForm: (eventId, onSelectLocation) => {
+    dispatch(initializeFormFirebase(eventId, onSelectLocation));
+  },
+
+  onUpdateEvent: (eventId, props) => {
+    const { title, organizer, description, location, date, category } = props;
+    const payload = {
+      userId: localStorage.getItem("userId"),
+      title,
+      organizer,
+      description,
+      location,
+      date,
+      category,
+      users: []
+    };
+    dispatch(updateEvent(eventId, payload));
     dispatch(resetFormState());
   }
 });

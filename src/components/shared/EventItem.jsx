@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Label, Segment, Popup } from "semantic-ui-react";
 
 export default function EventItem(props) {
-  const { event } = props;
+  const { event, buttons } = props;
   let currentDate = new Date();
   let eventDate = new Date(event.date.entireDate);
   let isFinished = eventDate < currentDate;
@@ -29,11 +29,22 @@ export default function EventItem(props) {
           </div>
         </div>
 
-        <Link to={`/event/${event.eventId}`}>
-          <Button basic color={`${isFinished ? "gray" : "orange"}`}>
-            Details
-          </Button>
-        </Link>
+        <div>
+          <Link to={`/event/${event.eventId}`}>
+            <Button basic color={`${isFinished ? "gray" : "orange"}`}>
+              Details
+            </Button>
+          </Link>
+          {buttons != undefined &&
+            !isFinished &&
+            buttons.map(element => (
+              <Link to={element.linkTo}>
+                <Button basic color={`${isFinished ? "gray" : "orange"}`}>
+                  {element.label}
+                </Button>
+              </Link>
+            ))}
+        </div>
       </div>
     </>
   );

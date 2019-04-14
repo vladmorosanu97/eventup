@@ -1,8 +1,8 @@
-import React from 'react';
-import { Icon, Input, Select } from 'semantic-ui-react';
+import React from "react";
+import { Icon, Input, Select } from "semantic-ui-react";
 
 export default function SelectForm(props) {
-  const { label, name, hasError, placeholder, categoryOptions } = props;
+  const { label, name, hasError, placeholder, categoryOptions, category } = props;
   return (
     <div className="form-input-height full-width margin-top-10">
       <div className="event-name-label">
@@ -17,11 +17,10 @@ export default function SelectForm(props) {
           placeholder={placeholder}
           options={categoryOptions}
           onChange={(ev, data) => props.handleCategoryChange(ev, data)}
+          value={category}
         />
 
-        {hasError ? (
-          <p className="error-field">This input is required</p>
-        ) : null}
+        {hasError ? <p className="error-field">This input is required</p> : null}
       </div>
     </div>
   );
