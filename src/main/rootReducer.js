@@ -5,12 +5,16 @@ import loginReducer from "../components/login/loginReducer";
 import homeReducer from "../components/home/homeReducer";
 import createEventReducer from "../components/create-event/createEventReducer";
 import eventReducer from "../components/event/eventReducer";
-import myEventsReducer from "../components/my-events/myEventsReducer";
+import userReducer from "../components/user/userReducer";
+import userEventsReducer from "../components/user-events/userEventsReducer";
+import searchUserReducer from "../components/search-user/searchUserReducer";
 // "root reducer"
 export default combineReducers({
   login: loginReducer,
   home: homeReducer,
   createEvent: createEventReducer,
   event: eventReducer,
-  myEvents: myEventsReducer
+  userEvents: userEventsReducer,
+  user: userReducer,
+  searchUser: searchUserReducer
 });

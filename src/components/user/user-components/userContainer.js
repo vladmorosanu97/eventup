@@ -1,15 +1,19 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-// import { getMyEvents, getMyScheduledEvents } from "../myEventsActions";
+import { getUserDetails } from "../userActions";
 
 import UserComponent from "./User";
 
 const mapStateProps = state => ({
-  myEvents: Object.assign({}, state.user)
+  user: Object.assign({}, state.user)
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  onGetUserDetails: userId => {
+    dispatch(getUserDetails(userId));
+  }
+});
 
 const User = withRouter(
   connect(

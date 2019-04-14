@@ -9,7 +9,7 @@ import Login from "../components/login/loginComponents/loginContainer";
 import Home from "../components/home/homeComponents/homeContainer";
 import CreateEvent from "../components/create-event/create-event-components/createEventContainer";
 import Event from "../components/event/event-components/eventContainer";
-import MyEvents from "../components/my-events/my-events-components/myEventsContainer";
+import UserEvents from "../components/user-events/user-events-components/userEventsContainer";
 import User from "../components/user/user-components/userContainer";
 
 class App extends React.Component {
@@ -61,7 +61,7 @@ class App extends React.Component {
             render={props => (
               <WithAuth {...props}>
                 <MainLayout {...props}>
-                  <MyEvents />
+                  <UserEvents />
                 </MainLayout>
               </WithAuth>
             )}

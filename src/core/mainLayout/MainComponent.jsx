@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { Redirect, Link } from "react-router-dom";
 
-import AuthServices from '../../services/auth/AuthService';
+import AuthServices from "../../services/auth/AuthService";
 
 export default class MainComponent extends Component {
   constructor(props) {
@@ -9,9 +9,9 @@ export default class MainComponent extends Component {
     this.state = {
       logout: false,
       profile: {
-        firstName: localStorage.getItem('firstName'),
-        lastName: localStorage.getItem('lastName'),
-        userId: localStorage.getItem('userId')
+        firstName: localStorage.getItem("firstName"),
+        lastName: localStorage.getItem("lastName"),
+        userId: localStorage.getItem("userId")
       }
     };
   }
@@ -28,7 +28,7 @@ export default class MainComponent extends Component {
   };
 
   render() {
-    const { firstName, lastName } = this.state.profile;
+    const { firstName, lastName, userId } = this.state.profile;
     return (
       <div className="header__component">
         <div className="header__component-logo">
@@ -36,21 +36,19 @@ export default class MainComponent extends Component {
           event<span>Hooks</span>
         </div>
         <div className="header__component-profile">
-          <div className="header__component-username">
-            {lastName.concat(' ', firstName)}
-          </div>
+          <Link to={`/users/${userId}`}>
+            <div className="header__component-username">{lastName.concat(" ", firstName)}</div>
+          </Link>
+
           <span className="header__component-icon">
             <i className="user circle icon" />
           </span>
           <div className="header__component-delimiter">|</div>
-          <div
-            className="header__component-logout"
-            onClick={this.handleLogoutClick}
-          >
+          <div className="header__component-logout" onClick={this.handleLogoutClick}>
             Logout
           </div>
         </div>
-        {this.state.logout ? this.redirectToTarget('/login') : ''}
+        {this.state.logout ? this.redirectToTarget("/login") : ""}
       </div>
     );
   }

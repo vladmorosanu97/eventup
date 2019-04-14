@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import video from "../../../services/night.mp4";
 import { Button, Card, Icon, Message, Dimmer, Loader, Segment, Image } from "semantic-ui-react";
-import { DatetimePicker } from "rc-datetime-picker";
 import moment from "moment";
 import Calendar from "../../shared/Calendar";
 import OlMapFunction from "../../../services/map/OlMap";
