@@ -9,21 +9,17 @@ export default function EventItem(props) {
   let isFinished = eventDate < currentDate;
   return (
     <>
-      <div
-        label={{ as: "a", corner: "left", icon: "heart" }}
-        className={`event_item-container ${props.className} `}
-        onClick={props.onClickEvent}
-      >
+      <div label={{ as: "a", corner: "left", icon: "heart" }} className={`event_item-container ${props.className} `} onClick={props.onClickEvent}>
         <div className="event_item-date-container">
-          <div className={`event_item-date-day ${isFinished ? "gray" : ""}`}>
-            {event.date.day}
-          </div>
+          <div className={`event_item-date-day ${isFinished ? "gray" : ""}`}>{event.date.day}</div>
           <div className="event_item-date-month">{event.date.month}</div>
         </div>
 
         <div className="event_item-info-container">
           <div className="event_item-info-title">
-            <Link to={`/event/${event.eventId}`}>{event.title}</Link>{" "}
+            <Link to={`/event/${event.eventId}`} className={isFinished ? "gray" : null}>
+              {event.title}
+            </Link>{" "}
           </div>
           <div className="event_item-info-date">
             <i className="clock outline grey icon" />
@@ -34,11 +30,8 @@ export default function EventItem(props) {
             {event.location.title}
           </div>
 
-          <div
-            className={`event_item-info-distance ${isFinished ? "gray" : ""}`}
-          >
-            {!calculateDistanceFailed &&
-            calculateDistanceFailed !== undefined ? (
+          <div className={`event_item-info-distance ${isFinished ? "gray" : ""}`}>
+            {!calculateDistanceFailed && calculateDistanceFailed !== undefined ? (
               <>
                 <i className="map marker alternate grey icon" />
                 {event.location.distance + " Km" + " distance"}

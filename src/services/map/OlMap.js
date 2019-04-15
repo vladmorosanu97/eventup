@@ -112,7 +112,7 @@ export default function OlMapFunction(opts) {
       const coords = fromLonLat([long, lat]);
       view.animate({
         center: this.convertCoordinates(coords, "EPSG:3857", "EPSG:3857"),
-        zoom: 6,
+        zoom: 7,
         duration: 1000
       });
     }
