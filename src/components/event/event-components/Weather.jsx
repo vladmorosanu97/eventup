@@ -1,28 +1,24 @@
-import React from 'react';
-import cloudSunny from '../../../assets/images/cloud-sunny.png';
-import cloudWinter from '../../../assets/images/cloud-winter.png';
-import cloud from '../../../assets/images/cloud.png';
-import cloudSun from '../../../assets/images/cloudly-sun.png';
-import drizzleRain from '../../../assets/images/drizzle-rain.png';
-import drizzle from '../../../assets/images/drizzle.png';
-import heavyRain from '../../../assets/images/heavy-rain.png';
-import heavySnow from '../../../assets/images/heavy-snow.png';
-import midnight from '../../../assets/images/mid-night.png';
-import rain from '../../../assets/images/rain.png';
-import snow from '../../../assets/images/snow.png';
-import storm from '../../../assets/images/storm.png';
-import sunUmbrella from '../../../assets/images/sun-umbrella.png';
-import sun from '../../../assets/images/sun.png';
-import thunderbolt from '../../../assets/images/thunderblot.png';
+import React from "react";
+import cloudSunny from "../../../assets/images/cloud-sunny.png";
+import cloud from "../../../assets/images/cloud.png";
+import cloudySun from "../../../assets/images/cloudy-sun.png";
+import drizzleRain from "../../../assets/images/drizzle-rain.png";
+import drizzle from "../../../assets/images/drizzle.png";
+import heavyRain from "../../../assets/images/heavy-rain.png";
+import midnight from "../../../assets/images/mid-night.png";
+import rain from "../../../assets/images/rain.png";
+import snow from "../../../assets/images/snow.png";
+import storm from "../../../assets/images/storm.png";
+import sun from "../../../assets/images/sun.png";
 
 export default function Weather(props) {
   const icons = {
     1: sun,
     2: sun,
     3: sun,
-    4: sun,
+    4: cloudSunny,
     5: cloudSunny,
-    6: cloudSunny,
+    6: cloudySun,
     7: cloud,
     8: cloud,
     11: cloud,
@@ -31,20 +27,20 @@ export default function Weather(props) {
     14: drizzleRain,
     15: storm,
     16: storm,
-    17: rain,
+    17: storm,
     18: rain,
-    19: drizzle,
-    20: cloudSunny,
-    21: cloudSun,
+    19: heavyRain,
+    20: cloudySun,
+    21: cloudSunny,
     22: snow,
-    23: cloudWinter,
-    24: rain,
-    25: snow,
-    26: heavyRain,
+    23: snow,
+    24: snow,
+    25: drizzle,
+    26: rain,
     29: snow,
     30: sun,
-    31: cloudWinter,
-    32: drizzleRain,
+    31: snow,
+    32: cloud,
     33: midnight,
     34: midnight,
     35: midnight,
@@ -52,10 +48,10 @@ export default function Weather(props) {
     37: cloud,
     38: cloud,
     39: cloud,
-    40: snow,
-    41: snow,
-    42: snow,
-    43: snow,
+    40: rain,
+    41: rain,
+    42: storm,
+    43: rain,
     44: snow
   };
 
@@ -65,7 +61,7 @@ export default function Weather(props) {
         {props.weather.day !== undefined ? (
           <>
             <div className="title">Day</div>
-            <img src={icons[props.weather.day.icon]} />
+            <img src={icons[props.weather.day.icon]} alt="img-weather" />
             <div className="label">{props.weather.day.iconPhrase}</div>
             <div className="display-flex justify-around align-center">
               <div className="label small margin-right-10 margin-top-10">
@@ -85,7 +81,7 @@ export default function Weather(props) {
         {props.weather.day !== undefined ? (
           <>
             <div className="title">Night</div>
-            <img src={icons[props.weather.night.icon]} />
+            <img src={icons[props.weather.night.icon]} alt="icon-weather" />
             <div className="label">{props.weather.night.iconPhrase}</div>
             <div className="display-flex justify-around align-center">
               <div className="label small margin-right-10 margin-top-10">

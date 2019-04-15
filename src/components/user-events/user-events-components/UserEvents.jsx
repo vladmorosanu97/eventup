@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Card, Image, Icon } from "semantic-ui-react";
 import EventItem from "../../shared/EventItem";
 
 class UserEventsComponent extends Component {
@@ -11,7 +10,7 @@ class UserEventsComponent extends Component {
   };
 
   componentWillReceiveProps = newProps => {
-    if (this.props.userId != newProps.userId) {
+    if (this.props.userId !== newProps.userId) {
       this.setState = {
         userId: newProps.userId ? newProps.userId : localStorage.getItem("userId")
       };
@@ -42,11 +41,11 @@ class UserEventsComponent extends Component {
                       key={index}
                       event={item}
                       className={this.state.activeIndex === index ? "active cursor-default" : "cursor-default"}
-                      buttons={this.props.userId == null ? [{ label: "Edit", linkTo: `my-events/${item.eventId}` }] : []} //this.props.userId === my-events page
+                      buttons={this.props.userId === null ? [{ label: "Edit", linkTo: `my-events/${item.eventId}` }] : []} //this.props.userId === my-events page
                     />
                   ))
               : ""}
-            {userEvents.length == 0 && !isFetchingUserEvents ? (
+            {userEvents.length === 0 && !isFetchingUserEvents ? (
               <div className="not-found-section">
                 <div className="text-left">There are no events</div>
               </div>
@@ -60,7 +59,7 @@ class UserEventsComponent extends Component {
                   <EventItem key={index} event={item} className={this.state.activeIndex === index ? "active cursor-default" : "cursor-default"} />
                 ))
               : ""}
-            {scheduledEvents.length == 0 && !isFetchingUserScheduledEvents ? (
+            {scheduledEvents.length === 0 && !isFetchingUserScheduledEvents ? (
               <div className="not-found-section">
                 <div className="text-left">There are no events</div>
               </div>

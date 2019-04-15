@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, Input, Select } from "semantic-ui-react";
+import { Icon, Select } from "semantic-ui-react";
 
 export default function SelectForm(props) {
   const { label, name, hasError, placeholder, categoryOptions, category } = props;

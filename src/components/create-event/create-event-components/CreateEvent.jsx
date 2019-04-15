@@ -25,7 +25,6 @@ export default class CreateEventComponent extends Component {
     });
     this.appMap = appMap;
     navigator.geolocation.getCurrentPosition(pos => {
-      console.log(pos.coords);
       appMap.centerMap(pos.coords.longitude, pos.coords.latitude);
     });
 
@@ -33,7 +32,7 @@ export default class CreateEventComponent extends Component {
       match: { params }
     } = this.props;
 
-    if (params.eventId != undefined) {
+    if (params.eventId !== undefined) {
       this.initializeForm(params.eventId, this.onSelectLocation);
     }
   };
@@ -74,7 +73,7 @@ export default class CreateEventComponent extends Component {
     } = this.props;
 
     if (this.checkIfCanSave()) {
-      if (params.eventId != undefined) {
+      if (params.eventId !== undefined) {
         this.props.onUpdateEvent(params.eventId, this.props.createEvent.formState);
         this.onClickBackToHomePage();
       } else {

@@ -25,9 +25,12 @@ body {
 .header__component-logo {
   font-size: 1.1rem;
   font-weight: 300;
+  display: flex;
+  align-items: center;
 }
 .header__component-logo span {
   font-weight: 400;
+  margin-right: 40px;
 }
 .header__component-profile {
   display: flex;

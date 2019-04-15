@@ -27,7 +27,7 @@ export const getUserDetails = userId => {
     let payload = {
       user: {}
     };
-    const databaseRef = firebaseProvider
+    firebaseProvider
       .database()
       .ref("users")
       .child(userId)

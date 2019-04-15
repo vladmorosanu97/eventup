@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Search } from "semantic-ui-react";
-import SearchUser from "../../components/search-user/search-user-components/searchUserContainer";
+import { Menu } from "semantic-ui-react";
 
 export default class MenuComponent extends Component {
   render() {
@@ -18,7 +17,6 @@ export default class MenuComponent extends Component {
           <Menu.Item as={Link} to="/my-events" name="my-events" active={this.props.page === "my-events"}>
             My Events
           </Menu.Item>
-          <SearchUser />
         </Menu>
       </div>
     );

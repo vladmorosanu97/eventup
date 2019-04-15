@@ -1,11 +1,9 @@
 import { connect } from "react-redux";
-import CreateEventComponent from "./Event";
 import { withRouter } from "react-router-dom";
 import EventComponent from "./Event";
 
 import {
   getEvent,
-  getWeatherApi,
   joinUserToEvent,
   cancelUserParticipation
 } from "../eventActions";

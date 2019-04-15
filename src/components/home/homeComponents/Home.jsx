@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import OlMapFunction from "../../../services/map/OlMap";
 import EventItem from "../../shared/EventItem";
-import { Search, Input, Label, Button, Checkbox } from "semantic-ui-react";
+import { Input, Label, Button, Checkbox } from "semantic-ui-react";
 import { ReactComponent as NotFoundImage } from "../../../assets/images/undraw_empty_xct9.svg";
 import { Slider } from "react-semantic-ui-range";
 class HomeComponent extends Component {
@@ -48,9 +48,7 @@ class HomeComponent extends Component {
   };
 
   handleSearchChange = (e, { value }) => {
-    console.log(value);
     this.props.onSearchEvent(value);
-    // this.setState({ isLoading: true, value });
   };
 
   handleSliderMinValue = event => {
@@ -85,7 +83,6 @@ class HomeComponent extends Component {
 
   render() {
     const { isFetching, filteredEventList, calculateDistanceFailed } = this.props.home;
-    const { value } = this.state;
     return (
       <div className="home__container">
         <div id="mapContainer" className="home__container-map">
@@ -174,24 +171,27 @@ class HomeComponent extends Component {
                   ))
               : null}
             {!isFetching && calculateDistanceFailed
-              ? filteredEventList.map((item, index) => (
-                  <EventItem
-                    key={index}
-                    event={item}
-                    className={this.state.activeIndex === index ? "active" : ""}
-                    onClickEvent={() => this.onClickEvent(item, index)}
-                    calculateDistanceFailed={calculateDistanceFailed}
-                  />
-                ))
+              ? filteredEventList
+                  .filter(item => (this.state.checkedIncomingEvents ? new Date(item.date.entireDate) > new Date() : item))
+                  .sort((a, b) => (new Date(a.date.entireDate) > new Date(b.date.entireDate) ? -1 : 1))
+                  .map((item, index) => (
+                    <EventItem
+                      key={index}
+                      event={item}
+                      className={this.state.activeIndex === index ? "active" : ""}
+                      onClickEvent={() => this.onClickEvent(item, index)}
+                      calculateDistanceFailed={calculateDistanceFailed}
+                    />
+                  ))
               : null}
-            {(filteredEventList.length == 0 && !isFetching) ||
+            {(filteredEventList.length === 0 && !isFetching) ||
             (filteredEventList.filter(item =>
               !this.state.checkedIncomingEvents
                 ? item.location.distance <= this.state.maxDistance && item.location.distance >= this.state.minDistance
                 : item.location.distance <= this.state.maxDistance &&
                   item.location.distance >= this.state.minDistance &&
                   new Date(item.date.entireDate) > new Date()
-            ).length == 0 &&
+            ).length === 0 &&
               !isFetching) ? (
               <div className="not-found-section">
                 <div className="text-left text-message ">No events found</div>

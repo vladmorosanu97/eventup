@@ -1,4 +1,3 @@
-import HereConfig from "../../config/HereConfig";
 import firebaseProvider from "../../config/FireConfig";
 import OlMapFunction from "../../services/map/OlMap";
 import "es6-promise";

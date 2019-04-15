@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import UserEvents from "../../user-events/user-events-components/userEventsContainer";
 import video from "../../../services/180301_15_B_KowloonPark_06.mp4";
-import { Image, Segment, Loader } from "semantic-ui-react";
+import { Segment, Loader } from "semantic-ui-react";
 class User extends Component {
   state = {
     userId: this.props.match.params.userId
@@ -13,7 +13,7 @@ class User extends Component {
   };
 
   componentWillReceiveProps = newProps => {
-    if (this.props.match.params.userId != newProps.match.params.userId) {
+    if (this.props.match.params.userId !== newProps.match.params.userId) {
       this.setState({
         userId: newProps.match.params.userId
       });
@@ -26,7 +26,6 @@ class User extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { isFetching, userDetails } = this.props.user;
     const { userId } = this.state;
     return (
@@ -41,7 +40,7 @@ class User extends Component {
         <div className="user-profile">
           {!isFetching ? (
             <>
-              <img className="user-image" src="https://react.semantic-ui.com/images/avatar/large/steve.jpg" />
+              <img className="user-image" src="https://react.semantic-ui.com/images/avatar/large/steve.jpg" alt="Avatar" />
               <div className="user-profile-container">
                 <div className="user-name">
                   {userDetails.firstName} {userDetails.lastName}

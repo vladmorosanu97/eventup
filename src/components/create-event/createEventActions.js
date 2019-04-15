@@ -87,7 +87,6 @@ export const getLocationCoordinates = (locationId, handleLocation) => {
         err => err
       )
       .then(resp => {
-        console.log(resp);
         const {
           Latitude
         } = resp.Response.View[0].Result[0].Location.DisplayPosition;
@@ -232,7 +231,6 @@ export const initializeFormFirebase = (eventId, handleLocation) => {
         if (snapshot.val() !== null) {
           payload["event"] = snapshot.val();
           dispatch(initializeForm(payload.event));
-          debugger;
           handleLocation(
             payload.event.location.longitude,
             payload.event.location.latitude,

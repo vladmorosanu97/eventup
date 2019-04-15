@@ -7,7 +7,6 @@ class SearchUser extends Component {
     this.setState({ suggestionForUser: data.value }, () => {
       if (data.value !== "") {
         this.props.onSearchUser(data.value);
-        console.log(data.value);
       }
     });
   };

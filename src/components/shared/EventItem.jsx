@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Label, Segment, Popup } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 
 export default function EventItem(props) {
   const { event, buttons, calculateDistanceFailed } = props;
@@ -34,7 +34,7 @@ export default function EventItem(props) {
             {!calculateDistanceFailed && calculateDistanceFailed !== undefined ? (
               <>
                 <i className="map marker alternate grey icon" />
-                {event.location.distance + " Km" + " distance"}
+                {event.location.distance} Km distance
               </>
             ) : calculateDistanceFailed !== undefined ? (
               <>
@@ -49,11 +49,15 @@ export default function EventItem(props) {
 
         <div className="display-flex">
           <Link to={`/event/${event.eventId}`}>
-            <Button basic color={`${isFinished ? "gray" : "orange"}`}>
-              Details
-            </Button>
+            {!isFinished ? (
+              <Button basic color={"orange"}>
+                Details
+              </Button>
+            ) : (
+              <Button basic>Details</Button>
+            )}
           </Link>
-          {buttons != undefined &&
+          {buttons !== undefined &&
             !isFinished &&
             buttons.map(element => (
               <Link to={element.linkTo}>

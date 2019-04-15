@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 
 import AuthServices from "../../services/auth/AuthService";
+import SearchUser from "../../components/search-user/search-user-components/searchUserContainer";
 
 export default class MainComponent extends Component {
   constructor(props) {
@@ -34,7 +35,11 @@ export default class MainComponent extends Component {
         <div className="header__component-logo">
           <i className="map pin inverted white icon" />
           event<span>Hooks</span>
+          <div>
+            <SearchUser />
+          </div>
         </div>
+
         <div className="header__component-profile">
           <Link to={`/users/${userId}`}>
             <div className="header__component-username">{lastName.concat(" ", firstName)}</div>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Icon, Input, TextArea, Form } from 'semantic-ui-react';
+import React from "react";
+import { Icon, TextArea, Form } from "semantic-ui-react";
 
 export default function TextareaForm(props) {
   const { label, value, name, hasError, placeholder } = props;
@@ -12,19 +12,10 @@ export default function TextareaForm(props) {
       <div className="ui form">
         <div className="field">
           <Form.Field error={hasError}>
-            <TextArea
-              rows="3"
-              name={name}
-              value={value}
-              placeholder={placeholder}
-              onChange={props.handleInputChange}
-              className="description-field"
-            />
+            <TextArea rows="3" name={name} value={value} placeholder={placeholder} onChange={props.handleInputChange} className="description-field" />
           </Form.Field>
 
-          {hasError ? (
-            <p className="error-field">This input is required</p>
-          ) : null}
+          {hasError ? <p className="error-field">This input is required</p> : null}
         </div>
       </div>
     </div>

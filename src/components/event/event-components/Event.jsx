@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import video from "../../../services/night.mp4";
-import { Button, Card, Icon, Message, Dimmer, Loader, Segment, Image } from "semantic-ui-react";
+import { Button, Card, Message, Loader, Segment, Image } from "semantic-ui-react";
 import moment from "moment";
 import Calendar from "../../shared/Calendar";
 import OlMapFunction from "../../../services/map/OlMap";
@@ -11,7 +11,7 @@ export default class EventComponent extends Component {
     moment: moment()
   };
   componentDidMount = () => {
-    const appMap = new OlMapFunction({
+    new OlMapFunction({
       projectionCode: "EPSG:3857",
       divId: "mapContainer2",
       zoom: 3,

@@ -67,14 +67,14 @@ export const getUserScheduledEvents = userId => {
     let payload = {
       myEvents: []
     };
-    const databaseRef = firebaseProvider
+    firebaseProvider
       .database()
       .ref(`events`)
       .on("value", snapshot => {
         if (snapshot.val() !== null) {
           payload["scheduledEvents"] = snapshotToArray(snapshot).filter(
             element =>
-              element.users !== undefined && element.users[userId] != undefined
+              element.users !== undefined && element.users[userId] !== undefined
           );
         }
         dispatch(receiveUserScheduledEvents(payload.scheduledEvents));

@@ -61,9 +61,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(saveEvent(payload));
     dispatch(resetFormState());
   },
-  onResetFormState: () => {
-    dispatch(resetFormState());
-  },
 
   onInitializeForm: (eventId, onSelectLocation) => {
     dispatch(initializeFormFirebase(eventId, onSelectLocation));

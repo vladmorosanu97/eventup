@@ -1,10 +1,6 @@
 import { connect } from "react-redux";
 import HomeComponent from "./Home";
-import {
-  getEventList,
-  requestSearchEvents,
-  calculateDistanceDone
-} from "../homeActions";
+import { getEventList, requestSearchEvents } from "../homeActions";
 
 const mapStateProps = state => ({
   home: Object.assign({}, state.home)

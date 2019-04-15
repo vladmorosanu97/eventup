@@ -42,7 +42,7 @@ export default function homeReducer(state = initialState, action) {
         ...state,
         filteredEventList: state.eventList.filter(
           event =>
-            event.title.toLowerCase().includes(action.search.toLowerCase()) ==
+            event.title.toLowerCase().includes(action.search.toLowerCase()) ===
             true
         )
       };

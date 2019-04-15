@@ -10,8 +10,8 @@ import { getWidth, getTopLeft } from "ol/extent.js";
 import { get as getProjection, transform, fromLonLat } from "ol/proj";
 import Overlay from "ol/Overlay.js";
 import OSM from "ol/source/OSM.js";
-import { getArea, getLength, getDistance } from "ol/sphere";
-import { LineString, Polygon } from "ol/geom.js";
+import { getLength } from "ol/sphere";
+import { LineString } from "ol/geom.js";
 
 let olMap;
 

@@ -1,4 +1,3 @@
-import { categoryOptions } from "../../utils/utils";
 import { actionTypes } from "./eventActions";
 
 var initialState = {

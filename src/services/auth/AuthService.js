@@ -26,7 +26,6 @@ export default class AuthService {
           });
         },
         err => {
-          console.log(err);
           const error = "Something went wrong...";
           reject({ message: error });
         }
@@ -63,7 +62,6 @@ export default class AuthService {
           });
         },
         err => {
-          console.log(err);
           const error = "Email or password is wrong!";
           reject({ message: error });
         }
