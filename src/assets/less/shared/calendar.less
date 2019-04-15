@@ -1,4 +1,3 @@
-
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -8,13 +7,12 @@ td {
   padding: 0;
 }
 
-.container {
-}
-
 .calendar-container {
   position: relative;
   width: 450px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+  border-radius: 6px;
 }
 
 .calendar-container header {
@@ -23,6 +21,8 @@ td {
   padding: 1em 2em;
   display: flex;
   justify-content: space-between;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 
 .day {
@@ -47,13 +47,13 @@ td {
   }
 }
 
-
 .calendar {
   background: #fff;
   color: #555;
   display: inline-block;
   padding: 1em;
   width: 100%;
+  border: 1px solid #c8c8c8;
 }
 
 .calendar thead {
@@ -101,10 +101,9 @@ td {
 .ring-right:after {
   background: #fff;
   border-radius: 4px;
-  -webkit-box-shadow: 0 3px 1px rgba(0, 0, 0, 0.3),
-    0 -1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 3px 1px rgba(0, 0, 0, 0.3), 0 -1px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0 3px 1px rgba(0, 0, 0, 0.3), 0 -1px 1px rgba(0, 0, 0, 0.2);
-  content: '';
+  content: "";
   display: inline-block;
   margin: 8px;
   height: 32px;

@@ -35,19 +35,20 @@ class UserEventsComponent extends Component {
         <div className="display-flex">
           <div className="my-events-list">
             {!isFetchingUserEvents
-              ? userEvents.map((item, index) => (
-                  <EventItem
-                    key={index}
-                    event={item}
-                    className={this.state.activeIndex === index ? "active cursor-default" : "cursor-default"}
-                    buttons={this.props.userId == null ? [{ label: "Edit", linkTo: `my-events/${item.eventId}` }] : []} //this.props.userId === my-events page
-                  />
-                ))
+              ? userEvents
+                  .sort((a, b) => (new Date(a.date.entireDate) > new Date(b.date.entireDate) ? -1 : 1))
+                  .map((item, index) => (
+                    <EventItem
+                      key={index}
+                      event={item}
+                      className={this.state.activeIndex === index ? "active cursor-default" : "cursor-default"}
+                      buttons={this.props.userId == null ? [{ label: "Edit", linkTo: `my-events/${item.eventId}` }] : []} //this.props.userId === my-events page
+                    />
+                  ))
               : ""}
             {userEvents.length == 0 && !isFetchingUserEvents ? (
               <div className="not-found-section">
                 <div className="text-left">There are no events</div>
-                {/* <NotFoundImage width="300" height="300" /> */}
               </div>
             ) : (
               ""
@@ -62,7 +63,6 @@ class UserEventsComponent extends Component {
             {scheduledEvents.length == 0 && !isFetchingUserScheduledEvents ? (
               <div className="not-found-section">
                 <div className="text-left">There are no events</div>
-                {/* <NotFoundImage width="300" height="300" /> */}
               </div>
             ) : (
               ""

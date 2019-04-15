@@ -590,7 +590,7 @@ body {
 .container-video {
   overflow: hidden;
   position: absolute;
-  top: 0;
+  top: -144px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -696,7 +696,12 @@ body {
 }
 .map-section .title {
   font-size: 22px;
-  color: #9a9a9a;
+  color: #5d666f;
+  margin-bottom: 20px;
+}
+.map-section .subtitle {
+  font-size: 16px;
+  color: #f2711c;
   margin-bottom: 20px;
 }
 .map-section .map {
@@ -717,7 +722,7 @@ body {
 }
 .weather-section .title {
   font-size: 22px;
-  color: #9a9a9a;
+  color: #5d666f;
   margin-bottom: 20px;
 }
 .weather-section .weather-not-allowed {
@@ -749,7 +754,7 @@ body {
 }
 .participants-section .title {
   font-size: 22px;
-  color: #9a9a9a;
+  color: #5d666f;
   margin-bottom: 20px;
 }
 .participants-section .participants {
@@ -915,7 +920,7 @@ body {
   background-color: #868484 !important;
 }
 .cursor-default {
-  cursor: default;
+  cursor: default !important;
 }
 .min-input {
   width: 58px !important;
@@ -945,7 +950,7 @@ td {
 .calendar-container {
   position: relative;
   width: 450px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 6px;
 }
 .calendar-container header {
   background: #f2711c;
@@ -953,6 +958,8 @@ td {
   padding: 1em 2em;
   display: flex;
   justify-content: space-between;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 .day {
   font-size: 3em;
@@ -978,6 +985,7 @@ td {
   display: inline-block;
   padding: 1em;
   width: 100%;
+  border: 1px solid #c8c8c8;
 }
 .calendar thead {
   color: #f2711c;

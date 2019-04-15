@@ -46,7 +46,8 @@ var initialState = {
       }
     }
   },
-  isUserJoinedToEvent: false
+  isUserJoinedToEvent: false,
+  calculateDistanceFailed: false
 };
 
 export default function eventReducer(state = initialState, action) {
@@ -156,6 +157,19 @@ export default function eventReducer(state = initialState, action) {
         isUserJoinedToEvent:
           state.eventDetails.users !== undefined &&
           state.eventDetails.users[action.data] !== undefined
+      };
+
+    case actionTypes.CALCULATE_DISTANCES_EVENT_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        eventDetails: action.data,
+        calculateDistanceFailed: false
+      };
+    case actionTypes.CALCULATE_DISTANCES_EVENT_FAILED:
+      return {
+        ...state,
+        calculateDistanceFailed: true
       };
     default:
       return state;

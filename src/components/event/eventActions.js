@@ -4,6 +4,7 @@ import {
   apiKey,
   weatherHost
 } from "../../services/weather/weatherService";
+import OlMapFunction from "../../services/map/OlMap";
 
 export const actionTypes = {
   REQUEST_EVENT: "REQUEST_EVENT",
@@ -17,7 +18,9 @@ export const actionTypes = {
   IS_USES_JOINED_TO_EVENT: "IS_USES_JOINED_TO_EVENT",
   SET_DATE_DIFFERENCE_MORE_THAN_MAX_ALLOWED:
     "SET_DATE_DIFFERENCE_MORE_THAN_MAX_ALLOWED",
-  SET_WEATHER_NOT_ALLOWED: "SET_WEATHER_NOT_ALLOWED"
+  SET_WEATHER_NOT_ALLOWED: "SET_WEATHER_NOT_ALLOWED",
+  CALCULATE_DISTANCES_EVENT_SUCCESS: "CALCULATE_DISTANCES_EVENT_SUCCESS",
+  CALCULATE_DISTANCES_EVENT_FAILED: "CALCULATE_DISTANCES_EVENT_FAILED"
 };
 
 export const requestEvent = () => {
@@ -89,6 +92,19 @@ export const isUserJoinedToEvent = userId => {
   };
 };
 
+export const calculateDistanceEventError = () => {
+  return {
+    type: actionTypes.CALCULATE_DISTANCES_EVENT_FAILED
+  };
+};
+
+export const calculateDistanceEventDone = event => {
+  return {
+    type: actionTypes.CALCULATE_DISTANCES_EVENT_SUCCESS,
+    data: event
+  };
+};
+
 export const receiveEventCallback = (
   payload,
   initializeMap,
@@ -133,6 +149,7 @@ export const getEvent = (eventId, initializeMap, isFirstRequest = true) => {
             receiveEventCallback(payload, initializeMap, isFirstRequest)
           );
           isFirstRequest = false;
+          dispatch(calculateDistanceEvent(payload.event));
         }
       });
   };
@@ -211,4 +228,30 @@ export const cancelUserParticipationFirebase = (userId, eventId) => {
     .database()
     .ref()
     .update(updates);
+};
+
+export const calculateDistanceEvent = event => {
+  return dispatch => {
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        const appMap = new OlMapFunction({
+          projectionCode: "EPSG:3857",
+          zoom: 3,
+          center: [0, 4813697]
+        });
+        let distance = appMap.calculateDistance(
+          { lat: pos.coords.latitude, long: pos.coords.longitude },
+          { lat: event.location.latitude, long: event.location.longitude }
+        );
+
+        event.location["distance"] = distance;
+
+        dispatch(calculateDistanceEventDone(event));
+        appMap.centerMap(pos.coords.longitude, pos.coords.latitude);
+      },
+      error => {
+        dispatch(calculateDistanceEventError());
+      }
+    );
+  };
 };

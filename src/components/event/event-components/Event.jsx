@@ -10,12 +10,19 @@ export default class EventComponent extends Component {
   state = {
     moment: moment()
   };
-  componentDidMount() {
+  componentDidMount = () => {
+    const appMap = new OlMapFunction({
+      projectionCode: "EPSG:3857",
+      divId: "mapContainer2",
+      zoom: 3,
+      center: [0, 4813697]
+    });
     const {
       match: { params }
     } = this.props;
+
     this.initializeEvent(params.eventId, this.initializeMap);
-  }
+  };
 
   initializeMap = () => {
     const appMap = new OlMapFunction({
@@ -24,11 +31,10 @@ export default class EventComponent extends Component {
       zoom: 3,
       center: [0, 4813697]
     });
-    this.appMap = appMap;
     const { location, title } = this.props.event.eventDetails;
     document.getElementById("marker").dataset.tooltip = title;
-    this.appMap.addMarker(location.longitude, location.latitude, document.getElementById("marker"));
-    this.appMap.centerMap(location.longitude, location.latitude);
+    appMap.addMarker(location.longitude, location.latitude, document.getElementById("marker"));
+    appMap.centerMap(location.longitude, location.latitude);
   };
 
   initializeEvent = (eventId, initializeMap) => {
@@ -59,7 +65,7 @@ export default class EventComponent extends Component {
   };
 
   render() {
-    const { isFetching, eventDetails, weather, isUserJoinedToEvent } = this.props.event;
+    const { isFetching, eventDetails, weather, isUserJoinedToEvent, calculateDistanceFailed } = this.props.event;
     return (
       <div>
         <div className="container-video">
@@ -74,7 +80,7 @@ export default class EventComponent extends Component {
               <div className="title-section">
                 <h1 className="title">{eventDetails.title}</h1>
                 <p className="header">{eventDetails.description}</p>
-                <p className="header">{isUserJoinedToEvent ? "Esti inregistrat la acest eveniment" : null}</p>
+                <p className="header">{isUserJoinedToEvent ? "You are attending this event" : null}</p>
                 <div className="buttons">
                   {isUserJoinedToEvent ? (
                     <Button basic inverted size="big" onClick={this.cancelUserParticipation}>
@@ -125,6 +131,13 @@ export default class EventComponent extends Component {
             </div>
             <div className="map-section">
               <div className="title">This event is placed in {eventDetails.location.title}</div>
+              {!calculateDistanceFailed ? (
+                <div className="subtitle">
+                  The distance to {eventDetails.location.title} is {eventDetails.location.distance} Km
+                </div>
+              ) : (
+                <div className="subtitle">Allow location to view the distance</div>
+              )}
               <div id="mapContainer2" className="map">
                 <div style={{ display: "none" }}>
                   <div id="marker" className="ui icon" data-position="top center">
@@ -158,13 +171,13 @@ export default class EventComponent extends Component {
               ) : (
                 <Message info>
                   <Message.Header>
-                    <div className="weather-not-allowed">Hai aici cu cel mult 5 zile inainte de eveniment pentru a vedea vremea.</div>
+                    <div className="weather-not-allowed">If the event is coming in less than 6 days you can see the weather for that date.</div>
                   </Message.Header>
                 </Message>
               )}
             </div>
             <div className="participants-section">
-              <div className="title">Participantii pentru acest eveniment</div>
+              <div className="title">participants for this event</div>
               <div className="participants">
                 {eventDetails.users !== undefined
                   ? Object.keys(eventDetails.users).map((key, index) => (

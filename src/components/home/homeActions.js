@@ -33,10 +33,9 @@ export const requestSearchEvents = search => {
   };
 };
 
-export const calculateDistanceError = data => {
+export const calculateDistanceError = () => {
   return {
-    type: actionTypes.CALCULATE_DISTANCES_FAILED,
-    data: data
+    type: actionTypes.CALCULATE_DISTANCES_FAILED
   };
 };
 
@@ -79,9 +78,7 @@ export const calculateDistance = events => {
         // appMap.centerMap(pos.coords.longitude, pos.coords.latitude);
       },
       error => {
-        dispatch(
-          calculateDistanceError("Allow your location to see distances")
-        );
+        dispatch(calculateDistanceError());
       }
     );
   };

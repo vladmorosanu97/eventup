@@ -47,7 +47,7 @@ export default function EventItem(props) {
           </div>
         </div>
 
-        <div>
+        <div className="display-flex">
           <Link to={`/event/${event.eventId}`}>
             <Button basic color={`${isFinished ? "gray" : "orange"}`}>
               Details

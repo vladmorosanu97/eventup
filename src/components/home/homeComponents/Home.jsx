@@ -153,7 +153,7 @@ class HomeComponent extends Component {
             </div>
           </div>
           <div className="home__container-dashboard">
-            {!isFetching
+            {!isFetching && !calculateDistanceFailed
               ? filteredEventList
                   .filter(item =>
                     !this.state.checkedIncomingEvents
@@ -172,15 +172,27 @@ class HomeComponent extends Component {
                       calculateDistanceFailed={calculateDistanceFailed}
                     />
                   ))
-              : ""}
+              : null}
+            {!isFetching && calculateDistanceFailed
+              ? filteredEventList.map((item, index) => (
+                  <EventItem
+                    key={index}
+                    event={item}
+                    className={this.state.activeIndex === index ? "active" : ""}
+                    onClickEvent={() => this.onClickEvent(item, index)}
+                    calculateDistanceFailed={calculateDistanceFailed}
+                  />
+                ))
+              : null}
             {(filteredEventList.length == 0 && !isFetching) ||
-            filteredEventList.filter(item =>
+            (filteredEventList.filter(item =>
               !this.state.checkedIncomingEvents
                 ? item.location.distance <= this.state.maxDistance && item.location.distance >= this.state.minDistance
                 : item.location.distance <= this.state.maxDistance &&
                   item.location.distance >= this.state.minDistance &&
                   new Date(item.date.entireDate) > new Date()
-            ).length == 0 ? (
+            ).length == 0 &&
+              !isFetching) ? (
               <div className="not-found-section">
                 <div className="text-left text-message ">No events found</div>
                 <NotFoundImage width="300" height="300" />

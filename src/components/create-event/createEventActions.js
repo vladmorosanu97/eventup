@@ -98,7 +98,19 @@ export const getLocationCoordinates = (locationId, handleLocation) => {
           latitude: Latitude,
           longitude: Longitude
         };
-        handleLocation(Longitude, Latitude, "star");
+        //         0:
+        // Result: Array(1)
+        // 0:
+        // Location:
+        // Address:
+        // AdditionalData: Array(1)
+        // 0: {value: "Deutschland", key: "CountryName"}
+        handleLocation(
+          Longitude,
+          Latitude,
+          resp.Response.View[0].Result[0].Location.Address.AdditionalData[0]
+            .value
+        );
         dispatch(receiveLocationCoordinates(locationCoordinates));
       });
   };
