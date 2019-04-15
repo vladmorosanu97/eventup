@@ -1,8 +1,10 @@
 {
+  "homepage": "https://vladmorosanu97.github.io/eventup/",
   "name": "create-react-app-redux",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0",
     "prettier": "^1.11.0",
@@ -45,7 +47,9 @@
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "lint-staged": {
     "*.{js,json,css,md}": [
