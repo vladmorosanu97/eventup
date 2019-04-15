@@ -10,6 +10,8 @@ import { getWidth, getTopLeft } from "ol/extent.js";
 import { get as getProjection, transform, fromLonLat } from "ol/proj";
 import Overlay from "ol/Overlay.js";
 import OSM from "ol/source/OSM.js";
+import { getArea, getLength, getDistance } from "ol/sphere";
+import { LineString, Polygon } from "ol/geom.js";
 
 let olMap;
 
@@ -108,12 +110,31 @@ export default function OlMapFunction(opts) {
 
     centerMap(long, lat) {
       const coords = fromLonLat([long, lat]);
-      console.log(coords);
       view.animate({
         center: this.convertCoordinates(coords, "EPSG:3857", "EPSG:3857"),
         zoom: 6,
         duration: 1000
       });
+    }
+
+    formatLength = function(line) {
+      var length = getLength(line);
+      var output;
+      if (length > 100) {
+        output = Math.round((length / 1000) * 100) / 100 + " " + "km";
+      } else {
+        output = Math.round(length * 100) / 100 + " " + "m";
+      }
+      return output;
+    };
+
+    calculateDistance(startPoint, endPoint) {
+      const coordsStart = fromLonLat([startPoint.long, startPoint.lat]);
+      const coordsEnd = fromLonLat([endPoint.long, endPoint.lat]);
+      let coordinates = [coordsStart, coordsEnd];
+
+      let line = new LineString(coordinates);
+      return this.formatLength(line);
     }
 
     addMarker(long, lat, el) {

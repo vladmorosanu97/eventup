@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import OlMapFunction from '../../../services/map/OlMap';
-import EventItem from '../../shared/EventItem';
-import { Search, Input } from 'semantic-ui-react';
-import { ReactComponent as NotFoundImage } from '../../../assets/images/undraw_empty_xct9.svg';
+import React, { Component } from "react";
+import OlMapFunction from "../../../services/map/OlMap";
+import EventItem from "../../shared/EventItem";
+import { Search, Input } from "semantic-ui-react";
+import { ReactComponent as NotFoundImage } from "../../../assets/images/undraw_empty_xct9.svg";
+
 class HomeComponent extends Component {
   state = {};
 
   componentDidMount = () => {
     const appMap = new OlMapFunction({
-      projectionCode: 'EPSG:3857',
-      divId: 'mapContainer',
+      projectionCode: "EPSG:3857",
+      divId: "mapContainer",
       zoom: 3,
       center: [0, 4813697]
     });
@@ -26,11 +27,11 @@ class HomeComponent extends Component {
     this.setState({
       activeIndex: index
     });
-    document.getElementById('marker').dataset.tooltip = event.title;
+    document.getElementById("marker").dataset.tooltip = event.title;
     this.appMap.addMarker(
       location.longitude,
       location.latitude,
-      document.getElementById('marker')
+      document.getElementById("marker")
     );
     this.appMap.centerMap(location.longitude, location.latitude);
   };
@@ -42,13 +43,17 @@ class HomeComponent extends Component {
   };
 
   render() {
-    const { isFetching, filteredEventList } = this.props.home;
+    const {
+      isFetching,
+      filteredEventList,
+      calculateDistanceFailed
+    } = this.props.home;
     const { value } = this.state;
 
     return (
       <div className="home__container">
         <div id="mapContainer" className="home__container-map">
-          <div style={{ display: 'none' }}>
+          <div style={{ display: "none" }}>
             <div id="marker" className="ui icon" data-position="top center">
               <i className="map pin orange icon big" />
             </div>
@@ -71,24 +76,25 @@ class HomeComponent extends Component {
                   <EventItem
                     key={index}
                     event={item}
-                    className={this.state.activeIndex === index ? 'active' : ''}
+                    className={this.state.activeIndex === index ? "active" : ""}
                     onClickEvent={() => this.onClickEvent(item, index)}
+                    calculateDistanceFailed={calculateDistanceFailed}
                   />
                 ))
-              : ''}
+              : ""}
             {filteredEventList.length == 0 && !isFetching ? (
               <div className="not-found-section">
                 <div className="text-left">There are no events</div>
                 <NotFoundImage width="300" height="300" />
               </div>
             ) : (
-              ''
+              ""
             )}
           </div>
 
           <div
             className={`ui ${
-              isFetching ? 'active' : 'disabled'
+              isFetching ? "active" : "disabled"
             } inverted dimmer`}
           >
             <div className="ui medium loader" />

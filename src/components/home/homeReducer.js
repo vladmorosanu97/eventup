@@ -4,7 +4,8 @@ var initialState = {
   isFetching: false,
   isFetchingSearch: false,
   eventList: [],
-  filteredEventList: []
+  filteredEventList: [],
+  calculateDistanceFailed: false
 };
 
 export default function homeReducer(state = initialState, action) {
@@ -20,6 +21,20 @@ export default function homeReducer(state = initialState, action) {
         isFetching: false,
         eventList: action.data.eventList,
         filteredEventList: action.data.eventList
+      };
+
+    case actionTypes.CALCULATE_DISTANCES_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        eventList: action.data,
+        calculateDistanceFailed: false,
+        filteredEventList: action.data
+      };
+    case actionTypes.CALCULATE_DISTANCES_FAILED:
+      return {
+        ...state,
+        calculateDistanceFailed: true
       };
 
     case actionTypes.SEARCH_EVENT:

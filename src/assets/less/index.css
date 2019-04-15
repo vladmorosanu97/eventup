@@ -1047,6 +1047,9 @@ td {
 .event_item-container .event_item-info-location {
   font-size: 14px;
 }
+.event_item-container .event_item-info-distance {
+  color: #f2711c;
+}
 .event_item-container .event_item-info-description {
   padding-top: 8px;
   display: flex;
