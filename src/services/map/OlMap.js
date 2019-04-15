@@ -121,9 +121,9 @@ export default function OlMapFunction(opts) {
       var length = getLength(line);
       var output;
       if (length > 100) {
-        output = Math.round((length / 1000) * 100) / 100 + " " + "km";
+        output = Math.round((length / 1000) * 100) / 100;
       } else {
-        output = Math.round(length * 100) / 100 + " " + "m";
+        output = Math.round(length * 100) / 100;
       }
       return output;
     };

@@ -340,39 +340,58 @@ body {
   height: 100%;
 }
 .home__container-actions {
-  height: 15%;
+  height: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid rgba(34, 36, 38, 0.15);
 }
-.home__container-title {
+.home__container .search-events {
+  display: flex;
   width: 100%;
-  padding: 0 0 12px 0;
+  align-items: center;
+}
+.home__container .search-events-title {
+  width: 20%;
   font-size: 1.2rem;
   font-weight: 300;
-  text-align: center;
-}
-.home__container-buttons {
+  text-align: left;
+  margin-left: 30px;
+  margin-right: 10px;
+  margin-top: 16px;
   display: flex;
-  justify-content: center;
-  width: 50%;
+  height: 100%;
+  align-items: flex-start;
+  color: #5d666f;
+}
+.home__container .search-events-buttons {
+  display: flex;
+  justify-content: flex-start;
+  width: 70%;
+  flex-direction: column;
+}
+.home__container .search-events-buttons-submit {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  align-items: center;
+}
+.home__container .search-events .slider {
+  width: 100%;
+  margin-top: 9px;
 }
 .home__container-dashboard {
-  height: 85%;
+  height: 80%;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  padding: 35px;
+  padding: 20px;
   overflow-y: scroll;
-  background-color: #f4f4f4;
-}
-.home__container .done {
-  background-color: #d3d3d3;
+  background-color: #f7f7f7;
 }
 .home__container .active {
-  background-color: #ebebeb;
+  background-color: #efefef;
 }
 .home__container .event_item-action-container {
   align-self: center;
@@ -888,6 +907,12 @@ body {
 .cursor-default {
   cursor: default;
 }
+.min-input {
+  width: 58px !important;
+}
+.max-input {
+  width: 95px !important;
+}
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -1015,9 +1040,6 @@ td {
 .event_item-container:hover {
   background-color: #e7e7e7;
 }
-.event_item-container .event_item-date-day {
-  color: #f2711c;
-}
 .event_item-container .event_item-date-container {
   padding-left: 25px;
 }
@@ -1025,7 +1047,7 @@ td {
   padding-top: 5px;
   font-size: 30px;
   font-weight: 600;
-  color: #868484;
+  color: #f2711c;
 }
 .event_item-container .event_item-date-month {
   font-size: 14px;

@@ -34,12 +34,14 @@ export default function EventItem(props) {
             {event.location.title}
           </div>
 
-          <div className="event_item-info-distance">
+          <div
+            className={`event_item-info-distance ${isFinished ? "gray" : ""}`}
+          >
             {!calculateDistanceFailed &&
             calculateDistanceFailed !== undefined ? (
               <>
                 <i className="map marker alternate grey icon" />
-                {event.location.distance + " distance"}
+                {event.location.distance + " Km" + " distance"}
               </>
             ) : calculateDistanceFailed !== undefined ? (
               <>

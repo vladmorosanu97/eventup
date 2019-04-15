@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import OlMapFunction from "../../../services/map/OlMap";
 import EventItem from "../../shared/EventItem";
-import { Search, Input } from "semantic-ui-react";
+import { Search, Input, Label, Button, Checkbox } from "semantic-ui-react";
 import { ReactComponent as NotFoundImage } from "../../../assets/images/undraw_empty_xct9.svg";
-
+import { Slider } from "react-semantic-ui-range";
 class HomeComponent extends Component {
-  state = {};
+  state = {
+    value: 100,
+    max: 200,
+    min: 0,
+    maxDistance: 100,
+    minDistance: 0
+  };
 
   componentDidMount = () => {
     const appMap = new OlMapFunction({
@@ -42,6 +48,27 @@ class HomeComponent extends Component {
     // this.setState({ isLoading: true, value });
   };
 
+  handleSliderMinValue = event => {
+    this.setState({
+      min: Number.parseInt(event.target.value)
+    });
+  };
+
+  handleSliderMaxValue = event => {
+    this.setState({
+      max: Number.parseInt(event.target.value)
+    });
+  };
+
+  handleOnClickMaxDistance = value => {
+    this.setState(prev => {
+      return {
+        maxDistance: prev.value,
+        minDistance: prev.min
+      };
+    });
+  };
+
   render() {
     const {
       isFetching,
@@ -49,7 +76,6 @@ class HomeComponent extends Component {
       calculateDistanceFailed
     } = this.props.home;
     const { value } = this.state;
-
     return (
       <div className="home__container">
         <div id="mapContainer" className="home__container-map">
@@ -61,26 +87,91 @@ class HomeComponent extends Component {
         </div>
         <div className="home__container-details">
           <div className="home__container-actions">
-            <div className="home__container-title">Search events</div>
-            <div className="home__container-buttons">
-              <Input
-                icon="search"
-                placeholder="Search..."
-                onChange={this.handleSearchChange}
-              />
+            <div className="search-events">
+              <div className="search-events-title">Search by name</div>
+              <div className="search-events-buttons">
+                <Input
+                  icon="search"
+                  placeholder="Search..."
+                  onChange={this.handleSearchChange}
+                />
+              </div>
+            </div>
+
+            <div className="search-events margin-top-20">
+              <div className="search-events-title">Search by distance</div>
+              <div className="search-events-buttons">
+                <div className="slider-section display-flex">
+                  <div className="ui disabled input min-input">
+                    <input
+                      type="number"
+                      disabled
+                      onChange={this.handleSliderMinValue}
+                      value={this.state.min}
+                    />
+                  </div>
+                  <div className="slider">
+                    <Slider
+                      color="red"
+                      inverted={false}
+                      settings={{
+                        start: this.state.value,
+                        min: this.state.min,
+                        max: this.state.max,
+                        step: 1,
+                        onChange: value => {
+                          this.setState({
+                            value: value
+                          });
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="ui input max-input">
+                    <input
+                      value={this.state.max}
+                      onChange={this.handleSliderMaxValue}
+                      type="number"
+                    />
+                  </div>
+                </div>
+                <div className="search-events-buttons-submit">
+                  <Checkbox label="Make my profile visible" />
+                  <div className="margin-right-10">
+                    <Label color="red" className="margin-right-10">
+                      {"Distance range: 0-" + this.state.value + " Km"}
+                    </Label>
+                  </div>
+
+                  <Button size="small" onClick={this.handleOnClickMaxDistance}>
+                    Search events
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
           <div className="home__container-dashboard">
             {!isFetching
-              ? filteredEventList.map((item, index) => (
-                  <EventItem
-                    key={index}
-                    event={item}
-                    className={this.state.activeIndex === index ? "active" : ""}
-                    onClickEvent={() => this.onClickEvent(item, index)}
-                    calculateDistanceFailed={calculateDistanceFailed}
-                  />
-                ))
+              ? filteredEventList
+                  .filter(
+                    item =>
+                      item.location.distance <= this.state.maxDistance &&
+                      item.location.distance >= this.state.minDistance
+                  )
+                  .sort((a, b) =>
+                    a.location.distance > b.location.distance ? 1 : -1
+                  )
+                  .map((item, index) => (
+                    <EventItem
+                      key={index}
+                      event={item}
+                      className={
+                        this.state.activeIndex === index ? "active" : ""
+                      }
+                      onClickEvent={() => this.onClickEvent(item, index)}
+                      calculateDistanceFailed={calculateDistanceFailed}
+                    />
+                  ))
               : ""}
             {filteredEventList.length == 0 && !isFetching ? (
               <div className="not-found-section">
