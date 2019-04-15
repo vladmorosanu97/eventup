@@ -11,14 +11,8 @@ export default class Calendar extends Component {
     [].forEach.call(days, function(el) {
       el.classList.remove("current-day");
     });
-    if (
-      this.props.day !== undefined &&
-      this.props.day !== null &&
-      this.props.day !== ""
-    ) {
-      document
-        .querySelector(`td[data-day="${this.props.day}"`)
-        .classList.add("current-day");
+    if (this.props.day !== undefined && this.props.day !== null && this.props.day !== "") {
+      document.querySelector(`td[data-day="${this.props.day}"`).classList.add("current-day");
     }
   }
 
@@ -26,20 +20,20 @@ export default class Calendar extends Component {
     const { day, month, time, year } = this.props;
     return (
       <>
-        <div class="calendar-container">
+        <div className="calendar-container">
           <header>
             <div>
-              <div class="day">{day}</div>
-              <div class="month">
+              <div className="day">{day}</div>
+              <div className="month">
                 {month} {year}
               </div>
             </div>
             <div className="time-section">
-              <div class="time">{time}</div>
+              <div className="time">{time}</div>
             </div>
           </header>
 
-          <table class="calendar">
+          <table className="calendar">
             <thead>
               <tr>
                 <td>Mon</td>
@@ -54,9 +48,9 @@ export default class Calendar extends Component {
 
             <tbody>
               <tr>
-                <td class="prev-month">29</td>
-                <td class="prev-month">30</td>
-                <td class="prev-month">31</td>
+                <td className="prev-month">29</td>
+                <td className="prev-month">30</td>
+                <td className="prev-month">31</td>
                 <td data-day="01">01</td>
                 <td data-day="02">02</td>
                 <td data-day="03">03</td>
@@ -100,7 +94,7 @@ export default class Calendar extends Component {
                 <td data-day="29">29</td>
                 <td data-day="30">30</td>
                 <td data-day="31">31</td>
-                <td class="next-month">1</td>
+                <td className="next-month">1</td>
               </tr>
             </tbody>
           </table>

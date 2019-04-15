@@ -65,7 +65,7 @@ export const getUserScheduledEvents = userId => {
   return dispatch => {
     dispatch(requestUserScheduledEvents());
     let payload = {
-      myEvents: []
+      scheduledEvents: []
     };
     firebaseProvider
       .database()

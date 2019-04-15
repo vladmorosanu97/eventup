@@ -4,6 +4,7 @@ import { Button } from "semantic-ui-react";
 
 export default function EventItem(props) {
   const { event, buttons, calculateDistanceFailed } = props;
+  console.log(buttons);
   let currentDate = new Date();
   let eventDate = new Date(event.date.entireDate);
   let isFinished = eventDate < currentDate;

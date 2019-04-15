@@ -171,11 +171,11 @@ export const getWeatherApi = (location, diffDays) => {
 };
 
 export const fetchWeatherLocationKey = location => {
-  return fetch(
-    `${weatherAutocompleteHost}\\apikey=${apiKey}&q=${location}`
-  ).then(resp => {
-    return resp.json();
-  });
+  return fetch(`${weatherAutocompleteHost}apikey=${apiKey}&q=${location}`).then(
+    resp => {
+      return resp.json();
+    }
+  );
 };
 
 export const fetchWeatherApi = locationKey => {

@@ -139,7 +139,7 @@ class HomeComponent extends Component {
               <div className="checkbox-section-submit display-flex align-center">
                 <div className="margin-right-10 margin-left-20">
                   <Label color="red" className="margin-right-10">
-                    {"Distance range: 0-" + this.state.value + " Km"}
+                    {"Distance: 0-" + this.state.value + " Km"}
                   </Label>
                 </div>
 

@@ -177,7 +177,7 @@ export default class EventComponent extends Component {
               )}
             </div>
             <div className="participants-section">
-              <div className="title">participants for this event</div>
+              <div className="title">Participants for this event</div>
               <div className="participants">
                 {eventDetails.users !== undefined
                   ? Object.keys(eventDetails.users).map((key, index) => (

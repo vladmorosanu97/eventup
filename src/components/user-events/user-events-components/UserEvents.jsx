@@ -25,15 +25,16 @@ class UserEventsComponent extends Component {
 
   render() {
     const { isFetchingUserScheduledEvents, isFetchingUserEvents, userEvents, scheduledEvents } = this.props.userEvents;
+    console.log(this.props);
     return (
       <div className="my-events_container">
-        <div class="my-events__container-title">
-          <div class="my-events">Promoted events</div>
-          <div class="scheduled-events">Scheduled events</div>
+        <div className="my-events__container-title">
+          <div className="my-events">Promoted events</div>
+          <div className="scheduled-events">Scheduled events</div>
         </div>
         <div className="display-flex">
           <div className="my-events-list">
-            {!isFetchingUserEvents
+            {!isFetchingUserEvents && userEvents !== undefined && userEvents.length > 0
               ? userEvents
                   .sort((a, b) => (new Date(a.date.entireDate) > new Date(b.date.entireDate) ? -1 : 1))
                   .map((item, index) => (
@@ -41,7 +42,7 @@ class UserEventsComponent extends Component {
                       key={index}
                       event={item}
                       className={this.state.activeIndex === index ? "active cursor-default" : "cursor-default"}
-                      buttons={this.props.userId === null ? [{ label: "Edit", linkTo: `my-events/${item.eventId}` }] : []} //this.props.userId === my-events page
+                      buttons={this.props.userId === undefined ? [{ label: "Edit", linkTo: `my-events/${item.eventId}` }] : []} //this.props.userId === my-events page
                     />
                   ))
               : ""}
@@ -54,10 +55,12 @@ class UserEventsComponent extends Component {
             )}
           </div>
           <div className="my-scheduled-events-list">
-            {!isFetchingUserScheduledEvents
-              ? scheduledEvents.map((item, index) => (
-                  <EventItem key={index} event={item} className={this.state.activeIndex === index ? "active cursor-default" : "cursor-default"} />
-                ))
+            {!isFetchingUserScheduledEvents && scheduledEvents !== undefined
+              ? scheduledEvents
+                  .sort((a, b) => (new Date(a.date.entireDate) > new Date(b.date.entireDate) ? -1 : 1))
+                  .map((item, index) => (
+                    <EventItem key={index} event={item} className={this.state.activeIndex === index ? "active cursor-default" : "cursor-default"} />
+                  ))
               : ""}
             {scheduledEvents.length === 0 && !isFetchingUserScheduledEvents ? (
               <div className="not-found-section">
