@@ -32,7 +32,7 @@ export default class EventComponent extends Component {
       center: [0, 4813697]
     });
     const { location, title } = this.props.event.eventDetails;
-    document.getElementById("marker").dataset.tooltip = title;
+    // document.getElementById("marker").dataset.tooltip = title;
     appMap.addMarker(location.longitude, location.latitude, document.getElementById("marker"));
     appMap.centerMap(location.longitude, location.latitude);
   };
